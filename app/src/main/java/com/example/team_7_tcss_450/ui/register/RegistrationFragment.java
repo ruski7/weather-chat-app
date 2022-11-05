@@ -1,4 +1,4 @@
-package com.example.team_7_tcss_450.ui;
+package com.example.team_7_tcss_450.ui.register;
 
 import android.os.Bundle;
 
