@@ -3,10 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/navigation_home">
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/navigation_home"
         android:name="com.example.team_7_tcss_450.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_weather"
+        android:name="com.example.team_7_tcss_450.ui.WeatherFragment"
+        android:label="@string/title_weather"
+        tools:layout="@layout/fragment_weather" />
+    <fragment
+        android:id="@+id/navigation_message"
+        android:name="com.example.team_7_tcss_450.ui.MessageFragment"
+        android:label="@string/title_messages"
+        tools:layout="@layout/fragment_message" />
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.example.team_7_tcss_450.ui.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account" />
 </navigation>
