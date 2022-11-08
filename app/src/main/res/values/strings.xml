@@ -6,4 +6,9 @@
     <string name="password_label">Password</string>
     <string name="sign_in_button">Sign In</string>
     <string name="register_button">Register</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="password_again_hint">Retype Password</string>
 </resources>
