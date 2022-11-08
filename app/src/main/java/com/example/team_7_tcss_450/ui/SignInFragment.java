@@ -46,8 +46,7 @@ public class SignInFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Local access to the ViewBinding object. No need to create as Instance Var as it is only
-        //used here.
+        //Local access to the ViewBinding object.
         mBinding = FragmentSignInBinding.bind(requireView());
 
         //On button click, navigate to MainActivity
