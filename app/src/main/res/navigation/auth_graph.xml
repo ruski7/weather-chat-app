@@ -15,8 +15,7 @@
             app:destination="@id/registrationFragment" />
         <action
             android:id="@+id/action_signInFragment_to_mainActivity"
-            app:destination="@id/mainActivity"
-            app:launchSingleTop="true" />
+            app:destination="@id/mainActivity" />
         <argument
             android:name="email"
             app:argType="string"
