@@ -1,8 +1,18 @@
 package com.example.team_7_tcss_450.ui.register;
 
-import static com.example.team_7_tcss_450.utils.PasswordValidator.*;
+import static com.example.team_7_tcss_450.utils.PasswordValidator.checkClientPredicate;
+import static com.example.team_7_tcss_450.utils.PasswordValidator.checkExcludeWhiteSpace;
+import static com.example.team_7_tcss_450.utils.PasswordValidator.checkPwdDigit;
+import static com.example.team_7_tcss_450.utils.PasswordValidator.checkPwdLength;
+import static com.example.team_7_tcss_450.utils.PasswordValidator.checkPwdLowerCase;
+import static com.example.team_7_tcss_450.utils.PasswordValidator.checkPwdSpecialChar;
+import static com.example.team_7_tcss_450.utils.PasswordValidator.checkPwdUpperCase;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,37 +20,32 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentRegistrationBinding;
 import com.example.team_7_tcss_450.utils.PasswordValidator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RegistrationFragment extends Fragment {
 
-    private FragmentRegistrationBinding mBinding;
+    private FragmentRegistrationBinding binding;
 
-    private RegisterViewModel mRegisterModel;
+    private RegistrationViewModel mRegisterModel;
 
-    private PasswordValidator mNameValidator = checkPwdLength(1);
+    private final PasswordValidator mNameValidator = checkPwdLength(1);
 
-    private PasswordValidator mEmailValidator = checkPwdLength(4)
+    private final PasswordValidator mEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
-            .and(checkPwdSpecialChar("@"))
-            .and(checkPwdSpecialChar("."));
+            .and(checkPwdSpecialChar("@"));
 
-
-    private PasswordValidator mPasswordValidator =
-            checkClientPredicate(pwd -> pwd.equals(mBinding.editPasswordVerify.getText().toString()))
+    private final PasswordValidator mPassWordValidator =
+            checkClientPredicate(pwd -> pwd.equals(binding.editPassword2.getText().toString()))
                     .and(checkPwdLength(7))
                     .and(checkPwdSpecialChar())
                     .and(checkExcludeWhiteSpace())
@@ -55,28 +60,24 @@ public class RegistrationFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRegisterModel = new ViewModelProvider(getActivity())
-                .get(RegisterViewModel.class);
+                .get(RegistrationViewModel.class);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mBinding = FragmentRegistrationBinding.inflate(inflater); // Edit 2 added!
-        return mBinding.getRoot();
+        binding = FragmentRegistrationBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mBinding.buttonRegister.setOnClickListener(this::attemptRegister);
+        binding.buttonRegisterUser.setOnClickListener(this::attemptRegister);
         mRegisterModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observeResponse);
-
     }
-
-    // Validation and Registration Method Below
 
     private void attemptRegister(final View button) {
         validateFirst();
@@ -84,69 +85,70 @@ public class RegistrationFragment extends Fragment {
 
     private void validateFirst() {
         mNameValidator.processResult(
-                mNameValidator.apply(mBinding.editFirstName.getText().toString().trim()),
+                mNameValidator.apply(binding.editFirst.getText().toString().trim()),
                 this::validateLast,
-                result -> mBinding.editFirstName.setError("Please enter a first name."));
+                result -> binding.editFirst.setError("Please enter a first name."));
     }
 
     private void validateLast() {
         mNameValidator.processResult(
-                mNameValidator.apply(mBinding.editLastName.getText().toString().trim()),
-                this::validateUserName,
-                result -> mBinding.editLastName.setError("Please enter a last name."));
-    }
-
-    private void validateUserName() {
-        mNameValidator.processResult(
-                mNameValidator.apply(mBinding.editLastName.getText().toString().trim()),
+                mNameValidator.apply(binding.editLast.getText().toString().trim()),
                 this::validateEmail,
-                result -> mBinding.editLastName.setError("Please enter a unique User Name."));
+                result -> binding.editLast.setError("Please enter a last name."));
     }
 
     private void validateEmail() {
         mEmailValidator.processResult(
-                mEmailValidator.apply(mBinding.editEmailAddress.getText().toString().trim()),
+                mEmailValidator.apply(binding.editEmail.getText().toString().trim()),
                 this::validatePasswordsMatch,
-                result -> mBinding.editEmailAddress.setError("Please enter a valid Email address."));
+                result -> binding.editEmail.setError("Please enter a valid Email address."));
     }
 
     private void validatePasswordsMatch() {
         PasswordValidator matchValidator =
                 checkClientPredicate(
-                        pwd -> pwd.equals(mBinding.editPasswordVerify.getText().toString().trim()));
+                        pwd -> pwd.equals(binding.editPassword2.getText().toString().trim()));
 
         mEmailValidator.processResult(
-                matchValidator.apply(mBinding.editPassword.getText().toString().trim()),
+                matchValidator.apply(binding.editPassword1.getText().toString().trim()),
                 this::validatePassword,
-                result -> mBinding.editPassword.setError("Passwords must match."));
+                result -> binding.editPassword1.setError("Passwords must match."));
     }
 
     private void validatePassword() {
-        mPasswordValidator.processResult(
-                mPasswordValidator.apply(mBinding.editPassword.getText().toString()),
+        mPassWordValidator.processResult(
+                mPassWordValidator.apply(binding.editPassword1.getText().toString()),
                 this::verifyAuthWithServer,
-                result -> mBinding.editPassword.setError("Please enter a valid Password."));
+                result -> binding.editPassword1.setError("Please enter a valid Password."));
     }
 
     private void verifyAuthWithServer() {
-        mRegisterModel.connect(
-                mBinding.editFirstName.getText().toString(),
-                mBinding.editLastName.getText().toString(),
-                mBinding.editUserName.getText().toString(),
-                mBinding.editEmailAddress.getText().toString(),
-                mBinding.editPassword.getText().toString());
+        // Custom added code here
+        final int argsQuantity = 4;
+        final Map<String, String> args = new HashMap<>(argsQuantity);
+        args.put("first", binding.editFirst.getText().toString());
+        args.put("last", binding.editLast.getText().toString());
+        args.put("email", binding.editEmail.getText().toString());
+        args.put("password", binding.editPassword1.getText().toString());
+        // Custom added code end
+        mRegisterModel.connect(args);
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
     }
 
     private void navigateToLogin() {
-//        RegistrationFragmentDirections.ActionRegistrationFragmentToSignInFragment directions =
-//                RegistrationFragmentDirections.actionRegistrationFragmentToSignInFragment();
-//
-//        directions.setEmail(mBinding.editEmailAddress.getText().toString());
-//        directions.setPassword(mBinding.editPassword.getText().toString());
-//
-//        Navigation.findNavController(getView()).navigate(directions);
+        RegistrationFragmentDirections.ActionRegistrationFragmentToSignInFragment directions =
+                RegistrationFragmentDirections.actionRegistrationFragmentToSignInFragment(
+                        binding.editEmail.getText().toString(),
+                        binding.editPassword1.getText().toString());
+
+        // These two lines below may be needed if the above args don't work for sending in
+        // registration info over to the sign-in page. So, it's sticking around for now, but
+        // do know that this is likely safe to delete
+        //directions.setEmail(binding.editEmail.getText().toString());
+        //directions.setPassword(binding.editPassword1.getText().toString());
+
+        Navigation.findNavController(getView()).navigate(directions);
     }
 
     /**
@@ -159,7 +161,7 @@ public class RegistrationFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    mBinding.editEmailAddress.setError(
+                    binding.editEmail.setError(
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
@@ -172,5 +174,4 @@ public class RegistrationFragment extends Fragment {
             Log.d("JSON Response", "No Response");
         }
     }
-
 }

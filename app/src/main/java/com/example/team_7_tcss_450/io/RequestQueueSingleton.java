@@ -12,19 +12,18 @@ import com.android.volley.toolbox.Volley;
 
 public class RequestQueueSingleton {
     private static RequestQueueSingleton instance;
-    private static Context context;
-
-    private RequestQueue mRequestQueue;
-    private ImageLoader mImageLoader;
+    private RequestQueue requestQueue;
+    private ImageLoader imageLoader;
+    private static Context ctx;
 
     private RequestQueueSingleton(Context context) {
-        RequestQueueSingleton.context = context;
-        mRequestQueue = getmRequestQueue();
+        ctx = context;
+        requestQueue = getRequestQueue();
 
-        mImageLoader = new ImageLoader(mRequestQueue,
+        imageLoader = new ImageLoader(requestQueue,
                 new ImageLoader.ImageCache() {
                     private final LruCache<String, Bitmap>
-                            cache = new LruCache<String, Bitmap>(20);
+                            cache = new LruCache<>(20);
 
                     @Override
                     public Bitmap getBitmap(String url) {
@@ -45,20 +44,20 @@ public class RequestQueueSingleton {
         return instance;
     }
 
-    public RequestQueue getmRequestQueue() {
-        if (mRequestQueue == null) {
+    public RequestQueue getRequestQueue() {
+        if (requestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
-            mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
+            requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
         }
-        return mRequestQueue;
+        return requestQueue;
     }
 
     public <T> void addToRequestQueue(Request<T> req) {
-        getmRequestQueue().add(req);
+        getRequestQueue().add(req);
     }
 
-    public ImageLoader getmImageLoader() {
-        return mImageLoader;
+    public ImageLoader getImageLoader() {
+        return imageLoader;
     }
 }
