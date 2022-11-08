@@ -121,8 +121,8 @@ public interface PasswordValidator
     static PasswordValidator checkPwdSpecialChar(String specialChars) {
         return password ->
                 Optional.of(checkStringContains(password,
-                        c -> specialChars.contains(Character.toString((char) c))) ?
-                        ValidationResult.SUCCESS : ValidationResult.PWD_MISSING_SPECIAL);
+                                c -> specialChars.contains(Character.toString((char) c))) ?
+                                ValidationResult.SUCCESS : ValidationResult.PWD_MISSING_SPECIAL);
     }
 
     /**
@@ -213,7 +213,6 @@ public interface PasswordValidator
          * the above return statement to below. The or method was introduced to the Optional
          * class in Java 1.9.
          */
-
 //        return password -> this.apply(password)
 //                .filter(result -> result != SUCCESS)
 //                .or(() -> other.apply(password));
