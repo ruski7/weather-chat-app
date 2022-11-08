@@ -6,7 +6,7 @@
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="sign_in_button">Sign In</string>
-    <string name="register_button">Register</string>
+    <string name="register_goto_registration">Register</string>
 
     <!-- Registration Fragment strings -->
     <string name="first_name_hint">First Name</string>
@@ -14,9 +14,11 @@
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="password_again_hint">Retype Password</string>
+    <string name="register_attempt_register_user">Register</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="title_home">Home</string>
+    <string name="home_greeting">Welcome, %1$s!</string>
     <string name="title_weather">Weather</string>
     <string name="title_messages">Messages</string>
     <string name="title_account">Account</string>
