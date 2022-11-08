@@ -16,6 +16,14 @@
         <action
             android:id="@+id/action_signInFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
+        <argument
+            android:name="email"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="password"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -31,4 +39,6 @@
         android:name="com.example.team_7_tcss_450.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <argument
+        android:name="email" />
 </navigation>
