@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +60,7 @@ public class RegistrationFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRegisterModel = new ViewModelProvider(getActivity())
+        mRegisterModel = new ViewModelProvider(requireActivity())
                 .get(RegistrationViewModel.class);
     }
 
@@ -123,14 +124,13 @@ public class RegistrationFragment extends Fragment {
     }
 
     private void verifyAuthWithServer() {
-        // Custom added code here
+        // Adding in json body args here
         final int argsQuantity = 4;
         final Map<String, String> args = new HashMap<>(argsQuantity);
         args.put("first", binding.editFirst.getText().toString());
         args.put("last", binding.editLast.getText().toString());
         args.put("email", binding.editEmail.getText().toString());
         args.put("password", binding.editPassword1.getText().toString());
-        // Custom added code end
         mRegisterModel.connect(args);
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
@@ -138,17 +138,11 @@ public class RegistrationFragment extends Fragment {
 
     private void navigateToLogin() {
         RegistrationFragmentDirections.ActionRegistrationFragmentToSignInFragment directions =
-                RegistrationFragmentDirections.actionRegistrationFragmentToSignInFragment(
-                        binding.editEmail.getText().toString(),
-                        binding.editPassword1.getText().toString());
+                RegistrationFragmentDirections.actionRegistrationFragmentToSignInFragment();
+        directions.setEmail(binding.editEmail.getText().toString());
+        directions.setPassword(binding.editPassword1.getText().toString());
 
-        // These two lines below may be needed if the above args don't work for sending in
-        // registration info over to the sign-in page. So, it's sticking around for now, but
-        // do know that this is likely safe to delete
-        //directions.setEmail(binding.editEmail.getText().toString());
-        //directions.setPassword(binding.editPassword1.getText().toString());
-
-        Navigation.findNavController(getView()).navigate(directions);
+        Navigation.findNavController(requireView()).navigate(directions);
     }
 
     /**
@@ -171,6 +165,7 @@ public class RegistrationFragment extends Fragment {
                 navigateToLogin();
             }
         } else {
+            Log.d("REGISTER", "No Response from REGISTER Page");
             Log.d("JSON Response", "No Response");
         }
     }
