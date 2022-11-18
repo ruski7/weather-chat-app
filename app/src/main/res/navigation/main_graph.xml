@@ -23,5 +23,5 @@
         android:id="@+id/navigation_account"
         android:name="com.example.team_7_tcss_450.ui.AccountFragment"
         android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_contacts" />
 </navigation>
