@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AccountFragment">
+    tools:context=".ui.account.AccountFragment">
 
     <ImageView
         android:id="@+id/imageView"
@@ -33,7 +33,7 @@
         android:layout_margin="10dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
-        android:backgroundTint="#A500FF"
+        android:backgroundTint="@color/blue2_500"
         android:insetLeft="0dp"
         android:insetTop="0dp"
         android:insetRight="0dp"
@@ -140,7 +140,6 @@
         android:id="@+id/button_logout"
         android:layout_width="411dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="28dp"
         android:backgroundTint="#FFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="29dp"
@@ -148,21 +147,35 @@
         android:textColor="@color/black"
         app:icon="@drawable/ic_logout_black_24dp"
         app:iconTint="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/button_edit_profile"
+        app:layout_constraintBottom_toTopOf="@+id/toggle_theme_switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:iconPadding="24dp" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/toggle_theme_switch"
+        android:layout_width="160dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="Light Mode"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button_edit_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <Button
         android:id="@+id/button_edit_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="16dp"
         android:text="Edit Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
