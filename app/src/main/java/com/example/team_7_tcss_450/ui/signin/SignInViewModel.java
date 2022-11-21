@@ -2,6 +2,7 @@ package com.example.team_7_tcss_450.ui.signin;
 
 import android.app.Application;
 import android.util.Base64;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,13 +12,17 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.example.team_7_tcss_450.io.RequestQueueSingleton;
 import com.example.team_7_tcss_450.utils.RequestMaker;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SignInViewModel extends AndroidViewModel {
 
@@ -54,6 +59,5 @@ public class SignInViewModel extends AndroidViewModel {
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
     }
-
 
 }

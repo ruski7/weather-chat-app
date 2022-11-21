@@ -22,6 +22,16 @@
     <string name="title_weather">Weather</string>
     <string name="title_messages">Messages</string>
     <string name="title_account">Account</string>
-    <string name="title_activity_account_fragment">AccountFragment</string>
+
+
+    <string name="base_url_service">https://team7-tcss450-project-service.herokuapp.com/</string>
+    <string name="base_url_auth">https://team7-tcss450-project-auth.herokuapp.com/</string>
+    <string name="desc" />
+
+    <!--
+    <string name="base_url_service">https://rhanson7-tcss450-labs-service.herokuapp.com/</string>
+    <string name="base_url_auth">https://rhanson7-tcss450-labs-auth.herokuapp.com/</string>
+    <string name="desc" />
+    -->
 
 </resources>

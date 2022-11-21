@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_weather" />
     <fragment
         android:id="@+id/navigation_message"
-        android:name="com.example.team_7_tcss_450.ui.MessageFragment"
+        android:name="com.example.team_7_tcss_450.ui.chat.MessageFragment"
         android:label="@string/title_messages"
         tools:layout="@layout/fragment_message" />
     <fragment
