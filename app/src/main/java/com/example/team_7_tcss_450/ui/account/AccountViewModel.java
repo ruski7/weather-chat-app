@@ -21,7 +21,6 @@ import java.util.Map;
 public class AccountViewModel extends AndroidViewModel {
 
     private final MutableLiveData<Boolean> darkMode = new MutableLiveData<Boolean>();
-    private final MutableLiveData<SwitchMaterial> darkModeSwitch = new MutableLiveData<SwitchMaterial>();
 
     public AccountViewModel(@NonNull Application application) {
         super(application);

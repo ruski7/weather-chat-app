@@ -13,8 +13,7 @@ import com.example.team_7_tcss_450.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AccountFragment extends Fragment {
-
+public class ContactsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

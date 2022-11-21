@@ -41,7 +41,6 @@ public class AccountFragment extends Fragment {
         binding.toggleThemeSwitch.setOnClickListener(item -> {
             Log.d("Weather App", "Toggling Dark Mode -> " + binding.toggleThemeSwitch.isChecked());
             mAccountModel.selectState(binding.toggleThemeSwitch.isChecked());
-//            mAccountModel.setSwitch(binding.toggleThemeSwitch);
         });
 
     }
