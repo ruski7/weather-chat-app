@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.Volley;
+import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.utils.RequestMaker;
 
 import org.json.JSONObject;
@@ -33,7 +34,8 @@ public class RegistrationViewModel extends AndroidViewModel {
     }
 
     public void connect(final Map<String, String> jsonBodyArgs) {
-        String url = "https://team7-tcss450-project-auth.herokuapp.com/auth";
+        String url = getApplication().getResources().getString(R.string.base_url_auth) +
+                "auth";
         final Request<JSONObject> request = RequestMaker.makeRequest(
                 Request.Method.POST,
                 url,

@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.android.volley.Request;
+import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.io.RequestQueueSingleton;
 import com.example.team_7_tcss_450.utils.RequestMaker;
 
@@ -35,7 +36,8 @@ public class SignInViewModel extends AndroidViewModel {
     }
 
     public void connect(final String email, final String password) {
-        String url = "https://team7-tcss450-project-auth.herokuapp.com/auth";
+        String url = getApplication().getResources().getString(R.string.base_url_auth) +
+                "auth";
         Map<String, String> headers = new HashMap<>();
         // add headers <key,value>
         String credentials = email + ":" + password;
