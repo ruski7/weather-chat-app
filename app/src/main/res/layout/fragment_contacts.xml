@@ -14,9 +14,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabItem
-            android:text="Contacts"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_width="match_parent" />
+            android:text="Contacts"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="1dp" />
 
     </com.google.android.material.tabs.TabLayout>
 

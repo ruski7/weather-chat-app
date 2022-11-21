@@ -20,7 +20,7 @@
         android:label="@string/title_messages"
         tools:layout="@layout/fragment_message" />
     <fragment
-        android:id="@+id/navigation_account"
+        android:id="@+id/navigation_Contacts"
         android:name="com.example.team_7_tcss_450.ui.AccountFragment"
         android:label="@string/title_account"
         tools:layout="@layout/fragment_contacts" />
