@@ -46,18 +46,16 @@ public class AccountFragment extends Fragment {
 
         // Toggles Dark Mode on click (changes view model boolean)
         binding.toggleDarkMode.setOnClickListener(SwitchMaterial -> {
-            Log.d("Weather App", "Toggling Dark Mode -> " + binding.toggleDarkMode.isChecked());
-
-            // Sets the State for Toggle that way MainActivity can view and react to changes
-            mAccountModel.selectState(binding.toggleDarkMode.isChecked());
 
             //Boolean.TRUE.equals(mAccountModel.getStatus().getValue())
             if(binding.toggleDarkMode.isChecked()) {
 //                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 Log.d("Weather App", "Fragment Dark Mode -> ON");
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             } else {
 //                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 Log.d("Weather App", "Fragment Dark Mode -> OFF");
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
 
