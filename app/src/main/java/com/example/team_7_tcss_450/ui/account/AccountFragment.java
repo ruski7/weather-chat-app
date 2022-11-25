@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team_7_tcss_450.databinding.FragmentAccountBinding;
-import com.example.team_7_tcss_450.ui.register.RegistrationViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,9 +34,6 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//          Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_account, container, false);
-
         binding = FragmentAccountBinding.inflate(inflater);
         return binding.getRoot();
     }
@@ -45,12 +41,6 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-        // Action Listener - Theme Color Change
-        binding.toggleTheme.setOnClickListener(SwitchMaterial -> {
-
-        });
 
 
 
@@ -69,6 +59,11 @@ public class AccountFragment extends Fragment {
 //                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 Log.d("Weather App", "Fragment Dark Mode -> OFF");
             }
+        });
+
+        // Action Listener - Theme Color Change
+        binding.toggleTheme.setOnClickListener(SwitchMaterial -> {
+            // TODO: Add Theme Actions
         });
 
     }

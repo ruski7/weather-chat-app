@@ -6,28 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.account.AccountFragment">
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="130dp"
         android:layout_height="118dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="60dp"
         android:src="@drawable/ic_account_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="20dp"
         android:text="John Doe"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button_account"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="163dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/_button_upload_profile"
@@ -58,9 +60,10 @@
         android:textColor="@color/black"
         app:icon="@drawable/ic_account_black_24dp"
         app:iconTint="#000000"
-        tools:iconPadding="27.5dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="274dp" />
+        app:layout_constraintBottom_toTopOf="@+id/button_notifications"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:iconPadding="27.5dp" />
 
     <Button
         android:id="@+id/button_notifications"
@@ -73,9 +76,9 @@
         android:textColor="@color/black"
         app:icon="@drawable/ic_notifications_black_24dp"
         app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/button_password"
         tools:iconPadding="27.5dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="324dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/button_password"
@@ -88,9 +91,9 @@
         android:textColor="@color/black"
         app:icon="@drawable/ic_password_black_24dp"
         app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/button_offline_forcast"
         tools:iconPadding="27.5dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="374dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/button_offline_forcast"
@@ -103,9 +106,10 @@
         android:textColor="@color/black"
         app:icon="@drawable/ic_offline_black_24dp"
         app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/button_power"
         tools:iconPadding="27.5dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="417dp" />
+        tools:layout_editor_absoluteX="0dp" />
+
 
     <Button
         android:id="@+id/button_power"
@@ -118,14 +122,15 @@
         android:textColor="@color/black"
         app:icon="@drawable/ic_power_black_24dp"
         app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/button_logout"
         tools:iconPadding="27.5dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="467dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/button_logout"
         android:layout_width="411dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#FFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="29dp"
@@ -133,32 +138,33 @@
         android:textColor="@color/black"
         app:icon="@drawable/ic_logout_black_24dp"
         app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/toggle_theme"
         tools:iconPadding="24dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="528dp" />
-
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/toggle_dark_mode"
-        android:layout_width="160dp"
-        android:layout_height="24dp"
-        android:layout_marginBottom="24dp"
-        android:text="Light Mode"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button_edit_profile"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        tools:layout_editor_absoluteX="0dp" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/toggle_theme"
         android:layout_width="160dp"
         android:layout_height="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="4dp"
         android:text="Switch Theme"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/toggle_dark_mode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/toggle_dark_mode"
+        android:layout_width="160dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="Light Mode"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button_edit_profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toEndOf="@+id/toggle_dark_mode" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_edit_profile"

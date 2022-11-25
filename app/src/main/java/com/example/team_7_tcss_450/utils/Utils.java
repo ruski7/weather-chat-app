@@ -27,7 +27,7 @@ public class Utils
         {
             default:
             case THEME_DEFAULT:
-                activity.setTheme(R.style.Theme_Team7TCSS450);
+                activity.setTheme(R.style.Theme_RelaxedBlue);//Theme_Team7TCSS450
                 break;
             case THEME_BLUE:
                 activity.setTheme(R.style.Theme_RelaxedBlue);
