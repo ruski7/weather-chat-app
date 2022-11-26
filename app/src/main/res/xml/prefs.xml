@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Appearance">
+
+        <SwitchPreference
+            android:title="Change Theme"
+            android:textStyle="bold"
+            android:key="changecolor"
+            android:summary="Change the color of your app for better view"/>
+
+        <SwitchPreference
+        android:title="Change Orientation to Landscape"
+        android:textStyle="bold"
+        android:key="changeorientation"
+        android:summary="Change Orientation"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="Profile">
+
+        <EditTextPreference
+            android:key="status"
+            android:hint="WhatsUp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:dialogMessage="Hows your mood"
+            android:dialogTitle="Update Status"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,5 +1,6 @@
 package com.example.team_7_tcss_450.ui.account;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.team_7_tcss_450.MainActivity;
+import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentAccountBinding;
+import com.example.team_7_tcss_450.databinding.FragmentRegistrationBinding;
+import com.example.team_7_tcss_450.ui.signin.SignInViewModel;
+import com.example.team_7_tcss_450.utils.Utils;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,19 +57,31 @@ public class AccountFragment extends Fragment {
 
             //Boolean.TRUE.equals(mAccountModel.getStatus().getValue())
             if(binding.toggleDarkMode.isChecked()) {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                Log.d("Weather App", "Fragment Dark Mode -> ON");
+                Log.d("Weather App", "Dark Mode (Switch) -> ON");
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
             } else {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                Log.d("Weather App", "Fragment Dark Mode -> OFF");
+                Log.d("Weather App", "Dark Mode (Switch) -> OFF");
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
             }
         });
 
         // Action Listener - Theme Color Change
         binding.toggleTheme.setOnClickListener(SwitchMaterial -> {
-            // TODO: Add Theme Actions
+            //Boolean.TRUE.equals(mAccountModel.getStatus().getValue())
+            if(binding.toggleTheme.isChecked()) {
+                Log.d("Weather App", "Theme (Switch) -> ON");
+//                new ViewModelProvider(requireActivity()).get(SignInViewModel.class);
+//                Utils.changeToTheme((Activity) getActivity(),Utils.THEME_GREEN);
+                getActivity().setTheme(R.style.Theme_ForestGreen);
+                mAccountModel.selectState(true);
+            } else {
+                Log.d("Weather App", "Theme (Switch) -> OFF");
+//                  Utils.changeToTheme((Activity) getActivity(),Utils.THEME_BLUE);
+                    mAccountModel.selectState(false);
+            }
+
         });
 
     }
