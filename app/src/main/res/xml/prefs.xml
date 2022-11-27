@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui." >
 
     <PreferenceCategory android:title="Appearance">
 
@@ -10,10 +15,16 @@
             android:summary="Change the color of your app for better view"/>
 
         <SwitchPreference
-        android:title="Change Orientation to Landscape"
+        android:title="Enable Dark Mode"
         android:textStyle="bold"
-        android:key="changeorientation"
-        android:summary="Change Orientation"/>
+        android:key="changedarkmode"
+        android:summary="A screen setting designed for dim light situations"/>
+
+        <SwitchPreference
+            android:title="Change Orientation to Landscape"
+            android:textStyle="bold"
+            android:key="changeorientation"
+            android:summary="Change Orientation"/>
 
     </PreferenceCategory>
 

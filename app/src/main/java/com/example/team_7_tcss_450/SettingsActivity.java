@@ -1,7 +1,7 @@
 package com.example.team_7_tcss_450;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,10 +14,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
-import android.widget.EditText;
-import android.widget.Switch;
-
-import java.util.prefs.Preferences;
+import android.util.Log;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -41,6 +38,12 @@ public class SettingsActivity extends PreferenceActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
 
+        if(sharedPreferences.getBoolean("changedarkmode", true)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
 
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreference()).commit();
     }
@@ -49,7 +52,8 @@ public class SettingsActivity extends PreferenceActivity {
 
         SharedPreferences sharedPreferences;
         SwitchPreference colorSwitch;
-        SwitchPreference orintationSwitch;
+        SwitchPreference darkModeSwitch;
+        SwitchPreference orientationSwitch;
         EditTextPreference editTextPreference;
 
         @Override
@@ -59,11 +63,11 @@ public class SettingsActivity extends PreferenceActivity {
 
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-            colorSwitch = (SwitchPreference) findPreference("changecolor");
-
-            orintationSwitch = (SwitchPreference) findPreference("changeorientation");
-
             editTextPreference = (EditTextPreference) findPreference("status");
+            colorSwitch = (SwitchPreference) findPreference("changecolor");
+            orientationSwitch = (SwitchPreference) findPreference("changeorientation");
+            darkModeSwitch = (SwitchPreference) findPreference("changedarkmode");
+
 
             editTextPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
@@ -88,14 +92,14 @@ public class SettingsActivity extends PreferenceActivity {
                 }
             });
 
-            orintationSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            orientationSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
 
                     boolean isChecked = (boolean) newValue;
 
                     if(isChecked) {
-                        changetoLandscape();
+                        changeToLandscape();
 
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
@@ -108,7 +112,7 @@ public class SettingsActivity extends PreferenceActivity {
                         },1000);
 
                     } else {
-                        changetoPortrait();
+                        changeToPortrait();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -131,7 +135,7 @@ public class SettingsActivity extends PreferenceActivity {
                     boolean isChecked = (boolean) newValue;
 
                     if(isChecked) {
-                        EnableColorChange();
+                        enableColorChange();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -142,7 +146,41 @@ public class SettingsActivity extends PreferenceActivity {
                             }
                         },1000);
                     } else {
-                        DisableColorChange();
+                        disableColorChange();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        },1000);
+                    }
+
+                    return true;
+                }
+            });
+
+            darkModeSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+
+                    boolean isChecked = (boolean) newValue;
+
+                    if(isChecked) {
+                        enableDarkMode();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        },1000);
+                    } else {
+                        disableDarkMode();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -170,35 +208,85 @@ public class SettingsActivity extends PreferenceActivity {
             editing.apply();
         }
 
-        private void changetoLandscape() {
+        private void changeToLandscape() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             SharedPreferences.Editor editing = sharedPreferences.edit();
             editing.putBoolean("changeorientation", true);
             editing.apply();
         }
 
-        private void changetoPortrait() {
+        private void changeToPortrait() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             SharedPreferences.Editor editing = sharedPreferences.edit();
             editing.putBoolean("changeorientation", false);
             editing.apply();
         }
 
-        private void EnableColorChange() {
+        private void enableColorChange() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             SharedPreferences.Editor editing = sharedPreferences.edit();
             editing.putBoolean("colorchange", true);
             editing.apply();
         }
 
-        private void DisableColorChange() {
+        private void disableColorChange() {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             SharedPreferences.Editor editing = sharedPreferences.edit();
             editing.putBoolean("colorchange", false);
             editing.apply();
         }
 
+        private void enableDarkMode() {
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences.Editor editing = sharedPreferences.edit();
+            editing.putBoolean("changedarkmode", true);
+            editing.apply();
+        }
 
+        private void disableDarkMode() {
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences.Editor editing = sharedPreferences.edit();
+            editing.putBoolean("changedarkmode", false);
+            editing.apply();
+        }
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("Weather App","Settings Activity Start");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("Weather App", "Settings Activity Restart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Weather App","Settings Activity Resume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("Weather App", "Settings Activity Pause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("Weather App","Settings Activity Stop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Weather App","Settings Activity Destroy");
     }
 
 }

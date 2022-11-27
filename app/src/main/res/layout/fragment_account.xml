@@ -31,18 +31,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <Button
         android:id="@+id/_button_upload_profile"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_margin="10dp"
-        android:backgroundTint="@color/blue2_500"
         android:insetLeft="0dp"
         android:insetTop="0dp"
         android:insetRight="0dp"
         android:insetBottom="0dp"
         app:cornerRadius="50dp"
-        app:icon="@drawable/ic_upload_black_24dp"
+        app:icon="@drawable/ic_upload_white_24dp"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="22dp"

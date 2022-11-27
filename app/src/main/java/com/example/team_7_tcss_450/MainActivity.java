@@ -3,6 +3,7 @@ package com.example.team_7_tcss_450;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -55,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
 
+        if(sharedPreferences.getBoolean("changedarkmode", true)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         new ViewModelProvider(this,
                 new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt())
         ).get(UserInfoViewModel.class);
@@ -77,16 +84,16 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        AccountViewModel mAccountModel = new ViewModelProvider(this).get(AccountViewModel.class);
-        mAccountModel.getStatus().observe(this, SwitchMaterial -> {
-            if(Boolean.TRUE.equals(mAccountModel.getStatus().getValue())) {
-                Log.d("Weather App", "Activity Event -> TRUE");
-                getApplication().setTheme(R.style.Theme_ForestGreen);
-            } else {
-                Log.d("Weather App", "Activity Event -> FALSE");
-                getApplication().setTheme(R.style.Theme_RelaxedBlue);
-            }
-        });
+//        AccountViewModel mAccountModel = new ViewModelProvider(this).get(AccountViewModel.class);
+//        mAccountModel.getStatus().observe(this, SwitchMaterial -> {
+//            if(Boolean.TRUE.equals(mAccountModel.getStatus().getValue())) {
+//                Log.d("Weather App", "Activity Event -> TRUE");
+//                getApplication().setTheme(R.style.Theme_ForestGreen);
+//            } else {
+//                Log.d("Weather App", "Activity Event -> FALSE");
+//                getApplication().setTheme(R.style.Theme_RelaxedBlue);
+//            }
+//        });
 
         String text = sharedPreferences.getString("status", "");
         Toast.makeText(this, "message from edit text " + text, Toast.LENGTH_SHORT).show();
@@ -115,37 +122,37 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("Weather App","Application Start");
+        Log.d("Weather App","Main Activity Start");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d("Weather App", "Application Restart");
+        Log.d("Weather App", "Main Activity Restart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("Weather App","Application Resume");
+        Log.d("Weather App","Main Activity Resume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("Weather App", "Application Pause");
+        Log.d("Weather App", "Main Activity Pause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("Weather App","Application Stop");
+        Log.d("Weather App","Main Activity Stop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("Weather App","Application Destroy");
+        Log.d("Weather App","Main Activity Destroy");
     }
 
 }

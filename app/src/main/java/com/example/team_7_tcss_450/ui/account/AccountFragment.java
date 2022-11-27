@@ -52,37 +52,37 @@ public class AccountFragment extends Fragment {
 
 
 
-        // Toggles Dark Mode on click (changes view model boolean)
-        binding.toggleDarkMode.setOnClickListener(SwitchMaterial -> {
+//        // Toggles Dark Mode on click (changes view model boolean)
+//        binding.toggleDarkMode.setOnClickListener(SwitchMaterial -> {
+//
+//            //Boolean.TRUE.equals(mAccountModel.getStatus().getValue())
+//            if(binding.toggleDarkMode.isChecked()) {
+//                Log.d("Weather App", "Dark Mode (Switch) -> ON");
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//
+//            } else {
+//                Log.d("Weather App", "Dark Mode (Switch) -> OFF");
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//
+//            }
+//        });
 
-            //Boolean.TRUE.equals(mAccountModel.getStatus().getValue())
-            if(binding.toggleDarkMode.isChecked()) {
-                Log.d("Weather App", "Dark Mode (Switch) -> ON");
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-            } else {
-                Log.d("Weather App", "Dark Mode (Switch) -> OFF");
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-            }
-        });
-
-        // Action Listener - Theme Color Change
-        binding.toggleTheme.setOnClickListener(SwitchMaterial -> {
-            //Boolean.TRUE.equals(mAccountModel.getStatus().getValue())
-            if(binding.toggleTheme.isChecked()) {
-                Log.d("Weather App", "Theme (Switch) -> ON");
-//                new ViewModelProvider(requireActivity()).get(SignInViewModel.class);
-//                Utils.changeToTheme((Activity) getActivity(),Utils.THEME_GREEN);
-                getActivity().setTheme(R.style.Theme_ForestGreen);
-                mAccountModel.selectState(true);
-            } else {
-                Log.d("Weather App", "Theme (Switch) -> OFF");
-//                  Utils.changeToTheme((Activity) getActivity(),Utils.THEME_BLUE);
-                    mAccountModel.selectState(false);
-            }
-
-        });
+//        // Action Listener - Theme Color Change
+//        binding.toggleTheme.setOnClickListener(SwitchMaterial -> {
+//            //Boolean.TRUE.equals(mAccountModel.getStatus().getValue())
+//            if(binding.toggleTheme.isChecked()) {
+//                Log.d("Weather App", "Theme (Switch) -> ON");
+////                new ViewModelProvider(requireActivity()).get(SignInViewModel.class);
+////                Utils.changeToTheme((Activity) getActivity(),Utils.THEME_GREEN);
+//                getActivity().setTheme(R.style.Theme_ForestGreen);
+//                mAccountModel.selectState(true);
+//            } else {
+//                Log.d("Weather App", "Theme (Switch) -> OFF");
+////                  Utils.changeToTheme((Activity) getActivity(),Utils.THEME_BLUE);
+//                    mAccountModel.selectState(false);
+//            }
+//
+//        });
 
     }
 
