@@ -21,10 +21,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerViewWordList;
-
-    List<Contact> contactList = new LinkedList<Contact>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,16 +45,5 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.
                 setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-        //static accounts
-        contactList.add(new Contact(R.drawable.ic_account_black_24dp, "Person1", "911-911-9111"));
-        contactList.add(new Contact(R.drawable.ic_account_black_24dp, "Person2", "000-000-0000"));
-        contactList.add(new Contact(R.drawable.ic_account_black_24dp, "Person3", "111-111-1111"));
-        contactList.add(new Contact(R.drawable.ic_account_black_24dp, "Person4", "222-222-2222"));
-        contactList.add(new Contact(R.drawable.ic_account_black_24dp, "Person5", "333-333-3333"));
-
-        recyclerViewWordList = findViewById(R.id.recyclerViewWordList);
-        recyclerViewWordList.setAdapter(new ContactListAdapter(this, contactList));
-        recyclerViewWordList.setLayoutManager(new LinearLayoutManager(this));
     }
 }

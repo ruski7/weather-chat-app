@@ -32,4 +32,40 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+    <ImageView
+        android:id="@+id/imageViewContactImage"
+        android:layout_width="38dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="34dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_account_black_24dp" />
+
+    <TextView
+        android:id="@+id/textViewContactNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="911-911-9111"
+        app:layout_constraintStart_toStartOf="@+id/textViewContactName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewContactName" />
+
+    <TextView
+        android:id="@+id/textViewContactName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Person1"
+        app:layout_constraintStart_toEndOf="@+id/imageViewContactImage"
+        app:layout_constraintTop_toTopOf="@+id/imageViewContactImage" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewWordList"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
