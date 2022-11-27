@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/label_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Saturday" />
+
+        <ImageView
+            android:id="@+id/icon_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/content_desc_weather_icon"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/label_min_temp"
+            app:layout_constraintStart_toStartOf="@+id/label_day"
+            app:layout_constraintTop_toTopOf="@+id/label_max_temp"
+            tools:srcCompat="@drawable/few_clouds" />
+
+        <TextView
+            android:id="@+id/label_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/label_day"
+            tools:text="2022-11-08" />
+
+        <TextView
+            android:id="@+id/label_max_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/label_weather_max_temp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/icon_weather"
+            app:layout_constraintTop_toBottomOf="@+id/label_day" />
+
+        <TextView
+            android:id="@+id/label_avg_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/label_weather_average_temp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/label_max_temp"
+            app:layout_constraintTop_toBottomOf="@+id/label_max_temp" />
+
+        <TextView
+            android:id="@+id/label_min_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/label_weather_min_temp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/label_avg_temp"
+            app:layout_constraintTop_toBottomOf="@+id/label_avg_temp" />
+
+        <TextView
+            android:id="@+id/value_max_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@+id/value_avg_temp"
+            app:layout_constraintTop_toTopOf="@+id/label_max_temp"
+            tools:text="70.1°F" />
+
+        <TextView
+            android:id="@+id/value_avg_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@+id/label_avg_temp"
+            app:layout_constraintTop_toTopOf="@+id/label_avg_temp"
+            tools:text="67.3°F" />
+
+        <TextView
+            android:id="@+id/value_min_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@+id/value_avg_temp"
+            app:layout_constraintTop_toTopOf="@+id/label_min_temp"
+            tools:text="60.4°F" />
+
+        <TextView
+            android:id="@+id/label_precip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/label_weather_precipitation"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/value_max_temp"
+            app:layout_constraintTop_toTopOf="@+id/value_max_temp" />
+
+        <TextView
+            android:id="@+id/label_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_weather_humidity"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/label_precip"
+            app:layout_constraintTop_toTopOf="@+id/value_avg_temp" />
+
+        <TextView
+            android:id="@+id/label_wind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_weather_wind"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/label_humidity"
+            app:layout_constraintTop_toTopOf="@+id/value_min_temp" />
+
+        <TextView
+            android:id="@+id/value_precip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@+id/value_humidity"
+            app:layout_constraintTop_toTopOf="@+id/label_precip"
+            tools:text="23.4%" />
+
+        <TextView
+            android:id="@+id/value_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@+id/label_humidity"
+            app:layout_constraintTop_toTopOf="@+id/label_humidity"
+            tools:text="32.5%" />
+
+        <TextView
+            android:id="@+id/value_wind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@+id/value_humidity"
+            app:layout_constraintTop_toTopOf="@+id/label_wind"
+            tools:text="04.1mph" />
+
+        <TextView
+            android:id="@+id/label_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/icon_weather"
+            app:layout_constraintTop_toBottomOf="@+id/icon_weather"
+            tools:text="Broken Clouds" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
