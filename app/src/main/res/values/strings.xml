@@ -28,7 +28,16 @@
     <!-- Strings used for connecting to web services -->
     <string name="base_url_service">https://team7-tcss450-project-service.herokuapp.com/</string>
     <string name="base_url_auth">https://team7-tcss450-project-auth.herokuapp.com/</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="base_url_weather_service">https://team7-tcss450-project-service.herokuapp.com/weatherbit/</string>
+
+    <!-- Strings used for weather forecast fragment -->
+    <string name="label_weather_max_temp">Max</string>
+    <string name="label_weather_average_temp">Avg</string>
+    <string name="label_weather_min_temp">Min</string>
+    <string name="label_weather_precipitation">Precip</string>
+    <string name="label_weather_humidity">Humidity</string>
+    <string name="label_weather_wind">Wind</string>
+    <string name="content_desc_weather_icon">Weather Icon</string>
+    <string name="value_weather_with_units">%1$04.1f%2$s</string>
 
 </resources>
