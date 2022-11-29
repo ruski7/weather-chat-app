@@ -27,6 +27,8 @@ public class AuthenticationActivity extends AppCompatActivity {
             setTheme(R.style.Theme_RelaxedBlue);
         }
 
+
+        // TODO: Fix below code to prevent constant landscape orientation
         /*if(sharedPreferences.getBoolean("changeorientation", true)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         } else {
