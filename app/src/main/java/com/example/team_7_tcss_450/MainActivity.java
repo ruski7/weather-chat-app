@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.team_7_tcss_450.databinding.ActivityMainBinding;
 import com.example.team_7_tcss_450.databinding.FragmentAccountBinding;
+import com.example.team_7_tcss_450.model.PushyTokenViewModel;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
 import com.example.team_7_tcss_450.ui.account.AccountFragment;
 import com.example.team_7_tcss_450.ui.account.AccountViewModel;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setTheme(R.style.Theme_RelaxedBlue);
         }
+
 
         // TODO: Fix below code to prevent constant landscape orientation
         /*if(sharedPreferences.getBoolean("changeorientation", true)) {
@@ -107,15 +110,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-        if(item.getItemId() == R.id.settings) {
-            startActivity(new Intent(MainActivity.this,SettingsActivity.class));
+        if (id == R.id.action_sign_out) {
+            signOut();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -154,6 +158,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("Weather App","Main Activity Destroy");
+    }
+
+    private void signOut() {
+        SharedPreferences prefs =
+                getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+
+        prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+        //End the app completely
+        PushyTokenViewModel model = new ViewModelProvider(this)
+                .get(PushyTokenViewModel.class);
+
+        //when we hear back from the web service quit
+        model.addResponseObserver(this, result -> finishAndRemoveTask());
+
+        model.deleteTokenFromWebservice(
+                new ViewModelProvider(this)
+                        .get(UserInfoViewModel.class)
+                        .getJWT()
+        );
     }
 
 }
