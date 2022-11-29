@@ -40,4 +40,10 @@
     <string name="content_desc_weather_icon">Weather Icon</string>
     <string name="value_weather_with_units">%1$04.1f%2$s</string>
 
+    <!-- Strings used for the sign out switch -->
+    <string name="switch_sign_in">Stay Signed in</string>
+    <string name="keys_shared_prefs">My Auth App Shared Prefs</string>
+    <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
+    <string name="action_sign_out">Sign Out</string>
+
 </resources>

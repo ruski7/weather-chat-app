@@ -27,11 +27,11 @@ public class AuthenticationActivity extends AppCompatActivity {
             setTheme(R.style.Theme_RelaxedBlue);
         }
 
-        if(sharedPreferences.getBoolean("changeorientation", true)) {
+        /*if(sharedPreferences.getBoolean("changeorientation", true)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-        }
+        }*/
 
         if(sharedPreferences.getBoolean("changedarkmode", true)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_sign_out"
+        android:orderInCategory="100"
+        android:title="@string/action_sign_out"
+        app:showAsAction="never" />
+
+    <item
         android:title="Settings"
         app:showAsAction="always"
         android:icon="@drawable/ic_settings_white_24dp"
