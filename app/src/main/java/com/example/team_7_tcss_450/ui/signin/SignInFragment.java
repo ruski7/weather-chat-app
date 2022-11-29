@@ -84,8 +84,8 @@ public class SignInFragment extends Fragment {
         });
 
         SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
-        binding.editTextEmailAddress.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-        binding.editTextPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+        binding.editTextEmailAddress.setText(args.getEmail().equals("default") ? "test@test.test" : args.getEmail());
+        binding.editTextPassword.setText(args.getPassword().equals("default") ? "Test123456!" : args.getPassword());
     }
 
     private void attemptSignIn(final View button) {

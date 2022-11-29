@@ -6,46 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".ui.account.AccountFragment">
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="130dp"
         android:layout_height="118dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="60dp"
         android:src="@drawable/ic_account_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="John Doe"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_account"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/_button_upload_profile"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_margin="10dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:backgroundTint="@color/blue2_500"
         android:insetLeft="0dp"
         android:insetTop="0dp"
         android:insetRight="0dp"
         android:insetBottom="0dp"
         app:cornerRadius="50dp"
-        app:icon="@drawable/ic_upload_black_24dp"
+        app:icon="@drawable/ic_upload_white_24dp"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="22dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView" />
-
 
     <Button
         android:id="@+id/button_account"
@@ -60,17 +62,13 @@
         app:iconTint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/button_notifications"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.983"
         tools:iconPadding="27.5dp" />
 
     <Button
         android:id="@+id/button_notifications"
         android:layout_width="411dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="4dp"
         android:backgroundTint="#FFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="25dp"
@@ -79,10 +77,8 @@
         app:icon="@drawable/ic_notifications_black_24dp"
         app:iconTint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/button_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:iconPadding="27.5dp" />
+        tools:iconPadding="27.5dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/button_password"
@@ -96,16 +92,13 @@
         app:icon="@drawable/ic_password_black_24dp"
         app:iconTint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/button_offline_forcast"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:iconPadding="27.5dp" />
+        tools:iconPadding="27.5dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/button_offline_forcast"
         android:layout_width="411dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="4dp"
         android:backgroundTint="#FFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="25dp"
@@ -114,10 +107,9 @@
         app:icon="@drawable/ic_offline_black_24dp"
         app:iconTint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/button_power"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:iconPadding="27.5dp" />
+        tools:iconPadding="27.5dp"
+        tools:layout_editor_absoluteX="0dp" />
+
 
     <Button
         android:id="@+id/button_power"
@@ -131,15 +123,14 @@
         app:icon="@drawable/ic_power_black_24dp"
         app:iconTint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/button_logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:iconPadding="27.5dp" />
+        tools:iconPadding="27.5dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/button_logout"
         android:layout_width="411dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#FFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="29dp"
@@ -147,24 +138,33 @@
         android:textColor="@color/black"
         app:icon="@drawable/ic_logout_black_24dp"
         app:iconTint="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/toggle_theme_switch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:iconPadding="24dp" />
+        app:layout_constraintBottom_toTopOf="@+id/toggle_theme"
+        tools:iconPadding="24dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/toggle_theme_switch"
+        android:id="@+id/toggle_theme"
         android:layout_width="160dp"
         android:layout_height="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="4dp"
+        android:text="Switch Theme"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/toggle_dark_mode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/toggle_dark_mode"
+        android:layout_width="160dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="16dp"
         android:text="Light Mode"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button_edit_profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <Button
         android:id="@+id/button_edit_profile"
@@ -175,7 +175,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

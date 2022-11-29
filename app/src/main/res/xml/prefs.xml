@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui." >
+
+    <PreferenceCategory android:title="Appearance">
+
+        <SwitchPreference
+            android:title="Change Theme"
+            android:textStyle="bold"
+            android:key="changecolor"
+            android:summary="Change the color of your app for better view"/>
+
+        <SwitchPreference
+        android:title="Enable Dark Mode"
+        android:textStyle="bold"
+        android:key="changedarkmode"
+        android:summary="A screen setting designed for dim light situations"/>
+
+        <SwitchPreference
+            android:title="Change Orientation to Landscape"
+            android:textStyle="bold"
+            android:key="changeorientation"
+            android:summary="Change Orientation"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="Profile">
+
+        <EditTextPreference
+            android:key="status"
+            android:hint="WhatsUp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:dialogMessage="Hows your mood"
+            android:dialogTitle="Update Status"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
