@@ -11,9 +11,8 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_weather"
-        android:name="com.example.team_7_tcss_450.ui.WeatherFragment"
-        android:label="@string/title_weather"
-        tools:layout="@layout/fragment_weather" />
+        android:name="com.example.team_7_tcss_450.ui.weather.WeeklyForecastFragment"
+        android:label="@string/title_weather" />
     <fragment
         android:id="@+id/navigation_message"
         android:name="com.example.team_7_tcss_450.ui.MessageFragment"
@@ -27,6 +26,6 @@
     <fragment
         android:id="@+id/navigation_contacts"
         android:name="com.example.team_7_tcss_450.ui.ContactsFragment"
-        android:label="fragment_conatcts"
+        android:label="@string/title_contacts"
         tools:layout="@layout/fragment_contacts" />
 </navigation>

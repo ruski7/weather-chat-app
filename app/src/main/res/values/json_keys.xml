@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- JSON keys for weekly weather forecast service -->
+    <string name="keys_json_weekly_forecast_list">data</string>
+    <string name="keys_json_weekly_forecast_latitude">lat</string>
+    <string name="keys_json_weekly_forecast_longitude">lon</string>
+    <string name="keys_json_weekly_forecast_country">country_code</string>
+    <string name="keys_json_weekly_forecast_state">state_code</string>
+    <string name="keys_json_weekly_forecast_city">city_name</string>
+
+    <!-- JSON keys for daily weather (based on weekly weather forecast service) -->
+    <string name="keys_json_daily_forecast_date">valid_date</string>
+    <string name="keys_json_daily_forecast_avg_temp">temp</string>
+    <string name="keys_json_daily_forecast_min_temp">min_temp</string>
+    <string name="keys_json_daily_forecast_max_temp">max_temp</string>
+    <string name="keys_json_daily_forecast_precipitation">pop</string>
+    <string name="keys_json_daily_forecast_humidity">rh</string>
+    <string name="keys_json_daily_forecast_wind_spd">wind_spd</string>
+    <!-- JSON keys for daily weather description object (based on weekly weather forecast service -->
+    <string name="keys_json_daily_forecast_weather_obj">weather</string>
+    <string name="keys_json_daily_forecast_description">description</string>
+    <string name="keys_json_daily_forecast_code">code</string>
+    <string name="keys_json_daily_forecast_icon_id">icon</string>
+
+</resources>
