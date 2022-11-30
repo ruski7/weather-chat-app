@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/contact_card_root"
+    android:layout_margin="8dp"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+        <TextView
+            android:id="@+id/textName"
+            android:textSize="22sp"
+            android:text="Charles Bryan"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        </TextView>
+        <TextView
+            android:id="@+id/textNumber"
+            android:textSize="18sp"
+            android:text="(888) 278 - 8342"
+            android:textAlignment="textEnd"
+            android:textColor="@color/hint_grey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        </TextView>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

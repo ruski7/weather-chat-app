@@ -45,7 +45,7 @@ public class WeeklyForecastViewModel extends AndroidViewModel {
     }
 
     public void addDailyForecastListObserver(@NonNull LifecycleOwner owner,
-                                        @NonNull Observer<? super List<DailyForecast>> observer) {
+                                             @NonNull Observer<? super List<DailyForecast>> observer) {
         mDailyForecastList.observe(owner, observer);
     }
 
@@ -132,5 +132,3 @@ public class WeeklyForecastViewModel extends AndroidViewModel {
     }
 
 }
-
-

@@ -1,17 +1,17 @@
-package com.example.team_7_tcss_450.ui.Contacts;
+package com.example.team_7_tcss_450.ui.contacts;
+
 
 public class Contact {
 
     private final String firstName;
     private final String lastName;
-    private final String contactNumb;
+    private final String contactNumber;
 
-    public Contact(String firstName, String lastName, String contactNumb) {
+    public Contact(String firstName, String lastName, String contactNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.contactNumb = contactNumb;
+        this.contactNumber = contactNumber;
     }
-
 
     public String getFirstName() {
         return firstName;
@@ -21,8 +21,8 @@ public class Contact {
         return lastName;
     }
 
-    public String getContactNumb() {
-        return contactNumb;
+    public String getContactNumber() {
+        return contactNumber;
     }
 }
 
