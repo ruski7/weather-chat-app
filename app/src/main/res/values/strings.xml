@@ -46,4 +46,7 @@
     <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
     <string name="action_sign_out">Sign Out</string>
 
+    <!-- Strings used for contacts action bar -->
+    <string name="action_invite_contact">Invite new contact</string>
+
 </resources>

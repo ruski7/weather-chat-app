@@ -8,10 +8,5 @@
         android:title="@string/action_sign_out"
         app:showAsAction="never" />
 
-    <item
-        android:title="Settings"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_settings_white_24dp"
-        android:id="@+id/settings"/>
 
 </menu>

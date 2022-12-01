@@ -21,26 +21,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
-        if(sharedPreferences.getBoolean("changecolor", true)) {
-            setTheme(R.style.Theme_ForestGreen);
-        } else {
-            setTheme(R.style.Theme_RelaxedBlue);
-        }
-
-
-        // TODO: Fix below code to prevent constant landscape orientation
-        /*if(sharedPreferences.getBoolean("changeorientation", true)) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-        }*/
-
-        if(sharedPreferences.getBoolean("changedarkmode", true)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
         setContentView(R.layout.activity_authentication);
     }
 
