@@ -23,4 +23,7 @@
     <color name="green_100">#A3B18A</color>
     <color name="tint_green_grey">#CCDBDC</color>
 
+    // TODO: Make hardcoded colors programmatically assignable
+    <color name="primaryTextColor">#FFF</color>
+
 </resources>

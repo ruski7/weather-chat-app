@@ -15,9 +15,9 @@
         android:label="@string/title_weather" />
     <fragment
         android:id="@+id/navigation_message"
-        android:name="com.example.team_7_tcss_450.ui.MessageFragment"
+        android:name="com.example.team_7_tcss_450.ui.chat.ChatFragment"
         android:label="@string/title_messages"
-        tools:layout="@layout/fragment_message" />
+        tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/navigation_account"
         android:name="com.example.team_7_tcss_450.ui.account.AccountFragment"
