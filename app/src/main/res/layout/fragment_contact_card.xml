@@ -12,6 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp">
+        <ImageView
+            android:id="@+id/idIVContact"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:padding="3dp"
+            android:src="@mipmap/ic_launcher" />
         <TextView
             android:id="@+id/textName"
             android:textSize="22sp"
