@@ -72,7 +72,7 @@ public class PushReceiver extends BroadcastReceiver {
             i.putExtras(intent.getExtras());
 
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                    i, PendingIntent.FLAG_UPDATE_CURRENT);
+                    i, PendingIntent.FLAG_IMMUTABLE); // prev arg was FLAG_UPDATE_CURRENT, but that didn't work for push notifications
 
             //research more on notifications the how to display them
             //https://developer.android.com/guide/topics/ui/notifiers/notifications
