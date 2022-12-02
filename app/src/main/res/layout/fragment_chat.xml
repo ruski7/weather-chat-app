@@ -14,12 +14,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:autofillHints=""
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine|textAutoCorrect|textAutoComplete"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_send"
-        app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/button_send"
@@ -56,7 +57,7 @@
             android:orientation="vertical"
             app:layoutManager="LinearLayoutManager"
             tools:context="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogListFragment"
-            tools:listitem="@layout/fragment_chat_message"/>
+            tools:listitem="@layout/fragment_sent_message"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

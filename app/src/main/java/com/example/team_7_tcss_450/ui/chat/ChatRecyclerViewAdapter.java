@@ -1,142 +1,103 @@
 package com.example.team_7_tcss_450.ui.chat;
 
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-
 import androidx.annotation.NonNull;
-import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
-import com.example.team_7_tcss_450.databinding.FragmentChatMessageBinding;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.shape.CornerFamily;
+import com.example.team_7_tcss_450.databinding.FragmentReceivedMessageBinding;
+import com.example.team_7_tcss_450.databinding.FragmentSentMessageBinding;
 
 import java.util.List;
 
-public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.MessageViewHolder> {
+public class ChatRecyclerViewAdapter extends RecyclerView.Adapter {
+
+    private static final int VIEW_TYPE_SENT_MSG = 0;
+    private static final int VIEW_TYPE_RECEIVED_MSG = 1;
 
     private final List<ChatMessage> mMessages;
-    private final String mEmail;
+    private final String mUserEmail;
     public ChatRecyclerViewAdapter(List<ChatMessage> messages, String email) {
         this.mMessages = messages;
-        mEmail = email;
+        mUserEmail = email;
     }
 
 
     @NonNull
     @Override
-    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MessageViewHolder(LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.fragment_chat_message, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        if (viewType == VIEW_TYPE_SENT_MSG) {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.fragment_sent_message, parent, false);
+            return new SentMessageViewHolder(view);
+        } else if (viewType == VIEW_TYPE_RECEIVED_MSG) {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.fragment_received_message, parent, false);
+            return new ReceivedMessageViewHolder(view);
+        } else {
+            // If the view type fails to return (which shouldn't ever happen) just default to sent message view
+            return new SentMessageViewHolder(LayoutInflater
+                    .from(parent.getContext())
+                    .inflate(R.layout.fragment_sent_message, parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
-        holder.setMessage(mMessages.get(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ChatMessage msg = mMessages.get(position);
+        switch (holder.getItemViewType()) {
+            case VIEW_TYPE_SENT_MSG:
+                ((SentMessageViewHolder) holder).setMessage(msg);
+                break;
+            case VIEW_TYPE_RECEIVED_MSG:
+                ((ReceivedMessageViewHolder) holder).setMessage(msg);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mMessages.size();
+        try {
+            return mMessages.size();
+        } catch (Exception e) {
+            Log.w("ChatRecycler", "Messages List empty for current chat room, returning 1");
+            return 1;
+        }
     }
 
-    class MessageViewHolder extends RecyclerView.ViewHolder {
-        private final View mView;
-        private FragmentChatMessageBinding binding;
+    @Override
+    public int getItemViewType(int position) {
+        ChatMessage msg = mMessages.get(position);
+        return msg.getSender().equals(mUserEmail) ? VIEW_TYPE_SENT_MSG : VIEW_TYPE_RECEIVED_MSG;
+    }
 
-        public MessageViewHolder(@NonNull View view) {
+    class SentMessageViewHolder extends RecyclerView.ViewHolder {
+        private final FragmentSentMessageBinding binding;
+
+        public SentMessageViewHolder(@NonNull View view) {
             super(view);
-            mView = view;
-            binding = FragmentChatMessageBinding.bind(view);
+            binding = FragmentSentMessageBinding.bind(view);
         }
 
         void setMessage(final ChatMessage message) {
-            final Resources res = mView.getContext().getResources();
-            final MaterialCardView card = binding.cardRoot;
-
-            int standard = (int) res.getDimension(R.dimen.chat_margin);
-            int extended = (int) res.getDimension(R.dimen.chat_margin_sided);
-
-            if (mEmail.equals(message.getSender())) {
-                //This message is from the user. Format it as such
-                binding.textMessage.setText(message.getMessage());
-                ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) card.getLayoutParams();
-                //Set the left margin
-                layoutParams.setMargins(extended, standard, standard, standard);
-                // Set this View to the right (end) side
-                ((FrameLayout.LayoutParams) card.getLayoutParams()).gravity =
-                        Gravity.END;
-
-                // TODO: get rid of hard-coded color setting below
-                card.setCardBackgroundColor(
-                        ColorUtils.setAlphaComponent(
-                            res.getColor(R.color.purple_500, null),
-                            16));
-                binding.textMessage.setTextColor(
-                        res.getColor(R.color.primaryTextColor, null));
-
-                card.setStrokeWidth(standard / 5);
-                card.setStrokeColor(ColorUtils.setAlphaComponent(
-                        res.getColor(R.color.teal_700, null),
-                        200));
-
-                //Round the corners on the left side
-                card.setShapeAppearanceModel(
-                        card.getShapeAppearanceModel()
-                                .toBuilder()
-                                .setTopLeftCorner(CornerFamily.ROUNDED,standard * 2)
-                                .setBottomLeftCorner(CornerFamily.ROUNDED,standard * 2)
-                                .setBottomRightCornerSize(0)
-                                .setTopRightCornerSize(0)
-                                .build());
-
-                card.requestLayout();
-            } else {
-                //This message is from another user. Format it as such
-                binding.textMessage.setText(message.getSender() +
-                        ": " + message.getMessage());
-                ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) card.getLayoutParams();
-
-                //Set the right margin
-                layoutParams.setMargins(standard, standard, extended, standard);
-                // Set this View to the left (start) side
-                ((FrameLayout.LayoutParams) card.getLayoutParams()).gravity =
-                        Gravity.START;
-
-                // TODO: get rid of hardcoded color assignments
-                card.setCardBackgroundColor(
-                        ColorUtils.setAlphaComponent(
-                                res.getColor(R.color.green_100, null),
-                                16));
-
-                card.setStrokeWidth(standard / 5);
-                card.setStrokeColor(ColorUtils.setAlphaComponent(
-                        res.getColor(R.color.green_200, null),
-                        200));
-
-                binding.textMessage.setTextColor(
-                        res.getColor(R.color.hint_grey, null));
-
-                //Round the corners on the right side
-                card.setShapeAppearanceModel(
-                        card.getShapeAppearanceModel()
-                                .toBuilder()
-                                .setTopRightCorner(CornerFamily.ROUNDED,standard * 2)
-                                .setBottomRightCorner(CornerFamily.ROUNDED,standard * 2)
-                                .setBottomLeftCornerSize(0)
-                                .setTopLeftCornerSize(0)
-                                .build());
-                card.requestLayout();
-            }
+            binding.textMessage.setText(message.getMessage());
         }
     }
+
+    class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
+        private final FragmentReceivedMessageBinding binding;
+
+        public ReceivedMessageViewHolder(@NonNull View view) {
+            super(view);binding = FragmentReceivedMessageBinding.bind(view);
+        }
+
+        void setMessage(final ChatMessage msg) {
+            binding.textMessage.setText(msg.getSender() +
+                    ": " + msg.getMessage());
+        }
+    }
+
 }

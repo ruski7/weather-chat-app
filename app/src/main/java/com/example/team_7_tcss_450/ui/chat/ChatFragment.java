@@ -52,7 +52,7 @@ public class ChatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FragmentChatBinding binding = FragmentChatBinding.bind(getView());
+        FragmentChatBinding binding = FragmentChatBinding.bind(requireView());
 
         //SetRefreshing shows the internal Swiper view progress bar. Show this until messages load
         binding.swipeContainer.setRefreshing(true);
@@ -93,8 +93,7 @@ public class ChatFragment extends Fragment {
         });
         //when we get the response back from the server, clear the edittext
         mSendModel.addResponseObserver(getViewLifecycleOwner(), response -> {
-                    binding.editMessage.setText("");
-                    mChatModel.getFirstMessages(HARD_CODED_CHAT_ID, mUserModel.getJWT());
-                });
+            binding.editMessage.setText("");
+        });
     }
 }

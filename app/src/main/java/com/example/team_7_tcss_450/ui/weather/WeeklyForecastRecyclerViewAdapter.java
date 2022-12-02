@@ -47,7 +47,6 @@ public class WeeklyForecastRecyclerViewAdapter extends RecyclerView.Adapter<Week
         final String far = "°F";
         final String percent = "%";
 
-        binding.labelDate.setText(item.getDate());
         binding.valueMaxTemp.setText(res.getString(R.string.value_weather_with_units,
                 item.getMaxTemp(), far));
         binding.valueAvgTemp.setText(res.getString(R.string.value_weather_with_units,

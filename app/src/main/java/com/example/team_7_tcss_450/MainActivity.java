@@ -180,6 +180,13 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
     /**
      * A BroadcastReceiver that listens for messages sent from PushReceiver
      */
@@ -195,13 +202,13 @@ public class MainActivity extends AppCompatActivity {
             NavDestination nd = nc.getCurrentDestination();
             if (intent.hasExtra("chatMessage")) {
                 ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
-                //If the user is not on the chat screen, update the
+                // If the user is not on the chat screen, update the
                 // NewMessageCountView Model
                 if (nd.getId() != R.id.navigation_message) {
                     mNewMessageModel.increment();
                 }
-            //Inform the view model holding chatroom messages of the new
-            //message.
+                //Inform the view model holding chatroom messages of the new
+                //message.
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
             }
         }
