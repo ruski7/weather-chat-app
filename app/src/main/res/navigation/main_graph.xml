@@ -25,7 +25,6 @@
         tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/navigation_contacts"
-        android:name="com.example.team_7_tcss_450.ui.ContactsFragment"
-        android:label="@string/title_contacts"
-        tools:layout="@layout/fragment_contacts" />
+        android:name="com.example.team_7_tcss_450.ui.contacts.ContactListFragment"
+        android:label="@string/title_contacts" />
 </navigation>

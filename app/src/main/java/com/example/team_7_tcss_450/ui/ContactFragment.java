@@ -1,5 +1,7 @@
 package com.example.team_7_tcss_450.ui;
 
+import static androidx.databinding.DataBindingUtil.setContentView;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,19 +23,22 @@ import com.example.team_7_tcss_450.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactsFragment extends Fragment {
+public class ContactFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contacts, container, false);
+        return inflater.inflate(R.layout.fragment_contact, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // The usage of an interface lets you inject your own implementation
+
+        // Add "add new contact" icon to top menu bar. May not need in this fragment
+        // since it's used in ContactListFragment
         MenuHost menuHost = requireActivity();
         // Add menu items without using the Fragment Menu APIs
         // Note how we can tie the MenuProvider to the viewLifecycleOwner
@@ -58,4 +63,5 @@ public class ContactsFragment extends Fragment {
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
+
 }
