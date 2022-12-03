@@ -4,12 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuHost;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +28,7 @@ import com.example.team_7_tcss_450.ui.weather.model.WeeklyForecastViewModel;
 
 public class ContactListFragment extends Fragment {
 
-    private WeeklyForecastViewModel mContactListModel;
+    private ContactListViewModel mContactListModel;
     private UserInfoViewModel mUserModel;
 
 
@@ -42,7 +48,7 @@ public class ContactListFragment extends Fragment {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
 
-        mContactListModel = new ViewModelProvider(requireActivity()).get(WeeklyForecastViewModel.class);
+        mContactListModel = new ViewModelProvider(requireActivity()).get(ContactListViewModel.class);
     }
 
     @Override
@@ -61,9 +67,37 @@ public class ContactListFragment extends Fragment {
 
         binding.contactList.setLayoutManager(new LinearLayoutManager(context));
 
-        mContactListModel.addDailyForecastListObserver(getViewLifecycleOwner(), (contactsList) -> {
+        mContactListModel.addContactListObserver(getViewLifecycleOwner(), (contactsList) -> {
+            // while we do observe the contact list from ContactListViewModel,
+            // we currently just spawn a list of generated contacts from ContactGenerator.
+            // TODO: replace generated placeholder contacts with real contacts list
             binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(ContactGenerator.getContactList()));
         });
+
+        // Add "add new contact" icon to top menu bar
+        MenuHost menuHost = requireActivity();
+        // Add menu items without using the Fragment Menu APIs
+        // Note how we can tie the MenuProvider to the viewLifecycleOwner
+        // and an optional Lifecycle.State (here, RESUMED) to indicate when
+        // the menu should be visible
+        menuHost.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.contacts_action_menu, menu);
+            }
+            // Handle the menu selection
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.invite_contact: {
+                        // TODO: Implement add new contact XML sheet and navigation to said sheet
+                        return true;
+                    }
+                    default:
+                        return false;
+                }
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
     }
 

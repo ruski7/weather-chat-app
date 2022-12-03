@@ -26,11 +26,7 @@ public class SettingsActivity extends PreferenceActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
-        if(sharedPreferences.getBoolean("changecolor", true)) {
-            setTheme(R.style.Theme_ForestGreen);
-        } else {
-            setTheme(R.style.Theme_RelaxedBlue);
-        }
+
 
         // TODO: Fix below code to prevent constant landscape orientation
         /*if(sharedPreferences.getBoolean("changeorientation", true)) {
