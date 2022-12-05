@@ -1,4 +1,4 @@
-package com.example.team_7_tcss_450.ui.chat;
+package com.example.team_7_tcss_450.ui.chat.model;
 
 import android.app.Application;
 import android.util.Log;

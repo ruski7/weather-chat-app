@@ -78,9 +78,8 @@ public class WeeklyForecastFragment extends Fragment {
         }
 
         final RecyclerView rv = binding.list;
-
         mForecastListModel.addDailyForecastListObserver(getViewLifecycleOwner(), (forecastList) -> {
-            binding.list.setAdapter(new WeeklyForecastRecyclerViewAdapter(forecastList));
+            rv.setAdapter(new WeeklyForecastRecyclerViewAdapter(forecastList));
             if (forecastList.isEmpty())
                 mForecastListModel.connectGetWeeklyForecast(mUserModel.getJWT());
         });

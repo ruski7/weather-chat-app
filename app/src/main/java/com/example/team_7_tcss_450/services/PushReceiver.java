@@ -15,7 +15,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.team_7_tcss_450.AuthenticationActivity;
 import com.example.team_7_tcss_450.R;
-import com.example.team_7_tcss_450.ui.chat.ChatMessage;
+import com.example.team_7_tcss_450.ui.chat.model.ChatMessage;
 
 import org.json.JSONException;
 

@@ -1,6 +1,6 @@
 package com.example.team_7_tcss_450.ui.weather.model;
 
-public class DailyForecast  {
+public class DailyForecast {
 
     private final String mDate;
     private final double mAvgTemp;

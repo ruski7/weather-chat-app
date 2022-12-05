@@ -1,4 +1,4 @@
-package com.example.team_7_tcss_450.ui.chat;
+package com.example.team_7_tcss_450.ui.chat.model;
 
 import android.app.Application;
 import android.util.Log;
@@ -36,9 +36,20 @@ public class ChatViewModel extends AndroidViewModel {
      */
     private Map<Integer, MutableLiveData<List<ChatMessage>>> mMessages;
 
+    public MutableLiveData<List<ChatPreview>> mChatPreviewsList;
+    public Map<Integer, Integer> mChatPreviewMap;
+
     public ChatViewModel(@NonNull Application application) {
         super(application);
         mMessages = new HashMap<>();
+        mChatPreviewsList = new MutableLiveData<>();
+        mChatPreviewsList.setValue(new ArrayList<>());
+        mChatPreviewMap = new HashMap<>();
+    }
+
+    public void addChatPreviewsObserver(@NonNull LifecycleOwner owner,
+                                        @NonNull Observer<? super List<ChatPreview>> observer) {
+        mChatPreviewsList.observe(owner, observer);
     }
 
     /**
@@ -173,6 +184,9 @@ public class ChatViewModel extends AndroidViewModel {
         List<ChatMessage> list = getMessageListByChatId(chatId);
         list.add(message);
         getOrCreateMapEntry(chatId).setValue(list);
+        // Add latest message to corresponding ChatPreview
+        List<ChatPreview> chatPreviews = mChatPreviewsList.getValue();
+
     }
 
     private void handelSuccess(final JSONObject response) {
@@ -200,7 +214,6 @@ public class ChatViewModel extends AndroidViewModel {
                     Log.wtf("Chat message already received",
                             "Or duplicate id:" + cMessage.getMessageId());
                 }
-
             }
             //inform observers of the change (setValue)
             getOrCreateMapEntry(response.getInt("chatId")).setValue(list);
@@ -222,4 +235,66 @@ public class ChatViewModel extends AndroidViewModel {
                     data);
         }
     }
+
+    public void getChatPreviews(final String email, final String jwt) {
+        String url = getApplication().getResources().getString(R.string.base_url_service)
+                + "chats/rooms"
+                + "?email=" + email;
+
+        Request<JSONObject> request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null, //no body for this get request
+                this::handleGetChatPreviews,
+                this::handleError) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    private void handleGetChatPreviews(final JSONObject response) {
+        if (response.has("rowCount")) {
+            try {
+                if (response.getInt("rowCount") != 0) {
+                    JSONArray rows = response.getJSONArray("rows");
+                    for (int i = 0; i < rows.length(); i++) {
+                        JSONObject rowItem = rows.getJSONObject(i);
+                        final String timestamp = rowItem.getString("timestamp");
+                        final String sentDate = timestamp.substring(0, timestamp.indexOf('T'));
+                        ChatPreview chatPreview = new ChatPreview(
+                                rowItem.getString("name"),
+                                rowItem.getString("email"),
+                                rowItem.getString("message"),
+                                sentDate,
+                                rowItem.getInt("chatid")
+                        );
+                        mChatPreviewMap.put(chatPreview.getChatId(), mChatPreviewsList.getValue().size());
+                        mChatPreviewsList.getValue().add(chatPreview);
+                        mChatPreviewsList.setValue(mChatPreviewsList.getValue());
+                    }
+                } else {
+                    // current user has no chats they're in
+                    Log.d("CHAT", "current user is not associated with any chats");
+                }
+            } catch (JSONException e) {
+                Log.e("CHAT", "Failed to parse rowCount in JSON object. response: " + response);
+            }
+        } else {
+            throw new IllegalStateException("Unexpected response in ChatViewModel: " + response);
+        }
+    }
+
 }

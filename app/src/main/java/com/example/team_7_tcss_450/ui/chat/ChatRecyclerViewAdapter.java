@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentReceivedMessageBinding;
 import com.example.team_7_tcss_450.databinding.FragmentSentMessageBinding;
+import com.example.team_7_tcss_450.ui.chat.model.ChatMessage;
 
 import java.util.List;
 
-public class ChatRecyclerViewAdapter extends RecyclerView.Adapter {
+public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_SENT_MSG = 0;
     private static final int VIEW_TYPE_RECEIVED_MSG = 1;
@@ -55,6 +56,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter {
                 break;
             case VIEW_TYPE_RECEIVED_MSG:
                 ((ReceivedMessageViewHolder) holder).setMessage(msg);
+                break;
         }
     }
 
@@ -71,10 +73,13 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         ChatMessage msg = mMessages.get(position);
+        // If the email of the user who sent the message is equal to ourselves,
+        // we return a view type corresponding to a user sent message,
+        // otherwise we return a view type corresponding to a received message.
         return msg.getSender().equals(mUserEmail) ? VIEW_TYPE_SENT_MSG : VIEW_TYPE_RECEIVED_MSG;
     }
 
-    class SentMessageViewHolder extends RecyclerView.ViewHolder {
+    static class SentMessageViewHolder extends RecyclerView.ViewHolder {
         private final FragmentSentMessageBinding binding;
 
         public SentMessageViewHolder(@NonNull View view) {
@@ -87,11 +92,12 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
+    static class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
         private final FragmentReceivedMessageBinding binding;
 
         public ReceivedMessageViewHolder(@NonNull View view) {
-            super(view);binding = FragmentReceivedMessageBinding.bind(view);
+            super(view);
+            binding = FragmentReceivedMessageBinding.bind(view);
         }
 
         void setMessage(final ChatMessage msg) {

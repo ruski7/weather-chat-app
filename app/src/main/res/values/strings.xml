@@ -52,4 +52,10 @@
     <!-- Strings used for contacts action bar -->
     <string name="action_invite_contact">Invite new contact</string>
 
+    <!-- Strings used for chat feature -->
+    <string name="content_desc_send_msg">Send Message</string>
+    <string name="hint_text_message">Text Message</string>
+    <string name="label_chat_rooms">Rooms</string>
+    <string name="label_chat">Chat</string>
+
 </resources>
