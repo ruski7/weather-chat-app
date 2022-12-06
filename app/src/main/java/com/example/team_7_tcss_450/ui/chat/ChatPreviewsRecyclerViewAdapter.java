@@ -4,26 +4,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentChatRoomCardBinding;
-import com.example.team_7_tcss_450.databinding.FragmentChatRoomsListBinding;
 import com.example.team_7_tcss_450.ui.chat.model.ChatPreview;
 
 import java.util.List;
-import java.util.Map;
 
-public class ChatPreviewRecyclerViewAdapter extends RecyclerView.Adapter<ChatPreviewRecyclerViewAdapter.ChatPreviewViewHolder> {
+public class ChatPreviewsRecyclerViewAdapter extends RecyclerView.Adapter<ChatPreviewsRecyclerViewAdapter.ChatPreviewViewHolder> {
 
     private final List<ChatPreview> chatPreviewList;
     private OnChatPreviewListener mOnChatPreviewListener;
 
-    public ChatPreviewRecyclerViewAdapter(final List<ChatPreview> chatPreviews, OnChatPreviewListener onChatPreviewListener) {
+    public ChatPreviewsRecyclerViewAdapter(final List<ChatPreview> chatPreviews, OnChatPreviewListener onChatPreviewListener) {
         this.chatPreviewList = chatPreviews;
         this.mOnChatPreviewListener = onChatPreviewListener;
     }

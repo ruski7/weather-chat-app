@@ -65,8 +65,8 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         try {
             return mMessages.size();
         } catch (Exception e) {
-            Log.w("ChatRecycler", "Messages List empty for current chat room, returning 1");
-            return 1;
+            Log.w("ChatRecycler", "Messages List empty for current chat room, returning 0");
+            return 0;
         }
     }
 

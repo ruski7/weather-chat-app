@@ -89,16 +89,16 @@ public class ChatFragment extends Fragment {
                      */
                     //inform the RV that the underlying list has (possibly) changed
                     //rv.getAdapter().notifyDataSetChanged(); The try catch statement below is a more time-efficient version of this line
-                    int viewPosition = mChatModel.getMessageListByChatId(mChatId).size() - 1;
+                    int viewPosition = rv.getAdapter().getItemCount();
                     try {
                         rv.getAdapter().notifyItemInserted(viewPosition);
-                        Log.d("CHAT", "Position: " + (rv.getAdapter().getItemCount() - 1));
+                        Log.d("CHAT", "Chat Messages RecyclerView Position: " + (viewPosition - 1));
                     } catch (NullPointerException e) {
                         Log.w("CHAT", "notifyItemRangeInserted() returned null pointer exception." +
                                 "This is likely because the data list connected to our recycler view adapter is empty.");
                     }
 
-                    rv.scrollToPosition(viewPosition);
+                    rv.scrollToPosition(list.size() - 1);
                     binding.swipeContainer.setRefreshing(false);
                 });
 

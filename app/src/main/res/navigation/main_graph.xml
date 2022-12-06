@@ -26,7 +26,7 @@
         app:startDestination="@id/navigation_message">
         <fragment
             android:id="@+id/navigation_message"
-            android:name="com.example.team_7_tcss_450.ui.chat.ChatRoomsListFragment"
+            android:name="com.example.team_7_tcss_450.ui.chat.ChatPreviewsFragment"
             android:label="@string/title_messages"
             tools:layout="@layout/fragment_chat_rooms_list">
             <action

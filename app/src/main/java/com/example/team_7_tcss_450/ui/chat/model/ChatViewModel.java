@@ -36,7 +36,7 @@ public class ChatViewModel extends AndroidViewModel {
      */
     private Map<Integer, MutableLiveData<List<ChatMessage>>> mMessages;
 
-    public MutableLiveData<List<ChatPreview>> mChatPreviewsList;
+    private MutableLiveData<List<ChatPreview>> mChatPreviewsList;
     public Map<Integer, Integer> mChatPreviewMap;
 
     public ChatViewModel(@NonNull Application application) {
@@ -45,6 +45,10 @@ public class ChatViewModel extends AndroidViewModel {
         mChatPreviewsList = new MutableLiveData<>();
         mChatPreviewsList.setValue(new ArrayList<>());
         mChatPreviewMap = new HashMap<>();
+    }
+
+    public List<ChatPreview> getChatPreviewsList() {
+        return mChatPreviewsList.getValue();
     }
 
     public void addChatPreviewsObserver(@NonNull LifecycleOwner owner,
@@ -236,7 +240,7 @@ public class ChatViewModel extends AndroidViewModel {
         }
     }
 
-    public void getChatPreviews(final String email, final String jwt) {
+    public void connectGetChatPreviews(final String email, final String jwt) {
         String url = getApplication().getResources().getString(R.string.base_url_service)
                 + "chats/rooms"
                 + "?email=" + email;
@@ -266,21 +270,35 @@ public class ChatViewModel extends AndroidViewModel {
     }
 
     private void handleGetChatPreviews(final JSONObject response) {
+        // quit getting chat previews if we've already populated our previews list
+        // This is to prevent adding repeat data should the user inadvertently make multiple requests
+        // as this success handler should only be called ONCE in the entire activity's lifetime.
+        if (!mChatPreviewsList.getValue().isEmpty())
+            return;
         if (response.has("rowCount")) {
             try {
                 if (response.getInt("rowCount") != 0) {
                     JSONArray rows = response.getJSONArray("rows");
                     for (int i = 0; i < rows.length(); i++) {
                         JSONObject rowItem = rows.getJSONObject(i);
+                        final ChatPreview chatPreview;
                         final String timestamp = rowItem.getString("timestamp");
-                        final String sentDate = timestamp.substring(0, timestamp.indexOf('T'));
-                        ChatPreview chatPreview = new ChatPreview(
-                                rowItem.getString("name"),
-                                rowItem.getString("email"),
-                                rowItem.getString("message"),
-                                sentDate,
-                                rowItem.getInt("chatid")
-                        );
+
+                        // Check if the chat is empty (newly made with no messages) by seeing if timestamp is empty
+                        if (timestamp.equals("null")) {
+                            // if chat empty, make chat preview without latest message and date
+                            chatPreview = new ChatPreview(rowItem.getInt("chatid"),
+                                    rowItem.getString("name"));
+                        } else {
+                            // otherwise, make a full chat preview
+                            chatPreview = new ChatPreview(
+                                    rowItem.getString("name"),
+                                    rowItem.getString("email"),
+                                    rowItem.getString("message"),
+                                    timestamp.substring(0, timestamp.indexOf('T')),
+                                    rowItem.getInt("chatid")
+                            );
+                        }
                         mChatPreviewMap.put(chatPreview.getChatId(), mChatPreviewsList.getValue().size());
                         mChatPreviewsList.getValue().add(chatPreview);
                         mChatPreviewsList.setValue(mChatPreviewsList.getValue());
