@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
 
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        // Try bottom line out later (make a custom toolbar)
+        //NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);

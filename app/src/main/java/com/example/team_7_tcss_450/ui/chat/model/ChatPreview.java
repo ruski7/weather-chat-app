@@ -1,9 +1,5 @@
 package com.example.team_7_tcss_450.ui.chat.model;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.time.Instant;
-
 public final class ChatPreview implements Comparable<ChatPreview> {
 
     private String chatName;

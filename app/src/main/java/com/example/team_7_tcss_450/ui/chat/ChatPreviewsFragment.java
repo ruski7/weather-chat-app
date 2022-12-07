@@ -1,5 +1,6 @@
 package com.example.team_7_tcss_450.ui.chat;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,12 +20,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.team_7_tcss_450.R;
+import com.example.team_7_tcss_450.databinding.FragmentAddChatDialogBinding;
 import com.example.team_7_tcss_450.databinding.FragmentChatRoomsListBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
 import com.example.team_7_tcss_450.ui.chat.model.ChatPreview;
 import com.example.team_7_tcss_450.ui.chat.model.ChatViewModel;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +77,11 @@ public class ChatPreviewsFragment extends Fragment implements ChatPreviewsRecycl
             rv.setAdapter(new ChatPreviewsRecyclerViewAdapter(chatPreviews, this));
         });
 
+        mChatModel.addChatPreviewsObserver(getViewLifecycleOwner(), chatPreviews -> {
+            // Notify recycler adapter that a new chat has been added to our chat previews list
+            Objects.requireNonNull(rv.getAdapter()).notifyItemInserted(0);
+        });
+
         // Add "add new chat" icon to top menu bar
         MenuHost menuHost = requireActivity();
         // Add menu items without using the Fragment Menu APIs
@@ -79,7 +91,7 @@ public class ChatPreviewsFragment extends Fragment implements ChatPreviewsRecycl
         menuHost.addMenuProvider(new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.chat_action_menu, menu);
+                menuInflater.inflate(R.menu.chat_previews_action_menu, menu);
             }
             // Handle the menu selection
             @Override
@@ -87,6 +99,7 @@ public class ChatPreviewsFragment extends Fragment implements ChatPreviewsRecycl
                 switch (menuItem.getItemId()) {
                     case R.id.add_new_chat: {
                         // TODO: Implement add new chat XML sheet and navigation to new chat
+                        showAddChatDialog();
                         return true;
                     }
                     default:
@@ -94,6 +107,38 @@ public class ChatPreviewsFragment extends Fragment implements ChatPreviewsRecycl
                 }
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+    }
+
+    public void showAddChatDialog() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.fragment_add_chat_dialog);
+        // Try to play with this later instead of using dialog.findViewById
+        /*final FragmentAddChatDialogBinding dialogBinding =
+                FragmentAddChatDialogBinding.bind(requireView());*/
+
+        final EditText chatEditText = dialog.findViewById(R.id.edit_chat_name);
+
+        Button confirmButton = dialog.findViewById(R.id.confirm_add_chat);
+        Button cancelButton = dialog.findViewById(R.id.cancel_add_chat);
+
+        confirmButton.setOnClickListener(view -> {
+            final String chatName = chatEditText.getText().toString();
+            if (chatName.length() == 0)
+                chatEditText.setError("Empty Title");
+            else {
+                mChatModel.connectAddNewChat(chatName, mUserModel.getJWT());
+                dialog.dismiss();
+            }
+            Log.d("CHAT PREVIEWS", "DIALOG CONFIRM BUTTON CLICKED");
+        });
+
+        cancelButton.setOnClickListener(view -> {
+            dialog.cancel();
+        });
+
+        dialog.show();
     }
 
     @Override

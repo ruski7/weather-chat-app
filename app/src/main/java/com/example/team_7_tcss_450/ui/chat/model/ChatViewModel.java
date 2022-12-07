@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -145,6 +146,11 @@ public class ChatViewModel extends AndroidViewModel {
      * @param jwt the users signed JWT
      */
     public void getNextMessages(final int chatId, final String jwt) {
+        // Don't get next messages if the given chat has no messages in the first place
+        if (mMessages.get(chatId).getValue().isEmpty()) {
+            getOrCreateMapEntry(chatId).setValue(mMessages.get(chatId).getValue());
+            return;
+        }
         String url = getApplication().getResources().getString(R.string.base_url_service) +
                 "messages/" +
                 chatId +
@@ -308,11 +314,68 @@ public class ChatViewModel extends AndroidViewModel {
                     Log.d("CHAT", "current user is not associated with any chats");
                 }
             } catch (JSONException e) {
-                Log.e("CHAT", "Failed to parse rowCount in JSON object. response: " + response);
+                Log.e("CHAT", "Failed to parse rowCount in JSON object. response: " + e.getMessage());
             }
         } else {
-            throw new IllegalStateException("Unexpected response in ChatViewModel: " + response);
+            throw new IllegalStateException("Unexpected response in handleGetChatPreviews(). Response: " + response);
         }
+    }
+
+    public void connectAddNewChat(final String chatName, final String jwt) {
+        String url = getApplication().getResources().getString(R.string.base_url_service)
+                + "chats/";
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("name", chatName);
+        } catch (JSONException e) {
+            Log.e("CHAT MODEL", "Failed to parse chat name on connectAddNewChat()");
+        }
+
+        Request<JSONObject> request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                body, //no body for this get request
+                this::handleAddNewChat,
+                this::handleError) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+            @Override
+            protected Map<String, String> getParams() {
+                final Map<String, String> params = new HashMap<>();
+                params.put("name", chatName);
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    private void handleAddNewChat(final JSONObject response) {
+        try {
+            final String chatName = response.getString("chatName");
+            // instantiate new chat preview
+            final ChatPreview chatPreview = new ChatPreview(response.getInt("chatId"),
+                    chatName);
+            // Add new chat to head of chat preview list
+            Objects.requireNonNull(mChatPreviewsList.getValue()).add(0, chatPreview);
+            mChatPreviewsList.setValue(mChatPreviewsList.getValue()); // Signal observers that new chat made
+            Log.d("CHAT MODEL", "Successfully added new chat: " + chatName);
+        } catch (JSONException e) {
+            Log.e("JSON PARSE ERROR", "Found in handleAddNewChat()");
+        }
+
     }
 
 }
