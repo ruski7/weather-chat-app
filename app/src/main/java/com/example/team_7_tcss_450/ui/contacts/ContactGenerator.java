@@ -11,7 +11,8 @@ public class ContactGenerator {
     static {
         CONTACTS_ARR = new Contact[COUNT];
         for (int i = 0; i < CONTACTS_ARR.length; i++) {
-            CONTACTS_ARR[i] = new Contact("Charles","Bryan","8884442222");
+            CONTACTS_ARR[i] = new Contact("username", "charles", "bryan",
+                    "testEmail", 1);
         }
     }
 
