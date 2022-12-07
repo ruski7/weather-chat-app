@@ -20,15 +20,14 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.team_7_tcss_450.databinding.ActivityMainBinding;
 import com.example.team_7_tcss_450.model.PushyTokenViewModel;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
 import com.example.team_7_tcss_450.model.NewMessageCountViewModel;
 import com.example.team_7_tcss_450.services.PushReceiver;
-import com.example.team_7_tcss_450.ui.chat.ChatMessage;
-import com.example.team_7_tcss_450.ui.chat.ChatViewModel;
+import com.example.team_7_tcss_450.ui.chat.model.ChatMessage;
+import com.example.team_7_tcss_450.ui.chat.model.ChatViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_weather,
-                R.id.navigation_message, R.id.navigation_contacts,
+                R.id.navigation_nested_chat, R.id.navigation_contacts,
                 R.id.navigation_account).build();
 
         // Code added to make nav_host fragment act as container view rather than direct fragment
@@ -71,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
 
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        // Try bottom line out later (make a custom toolbar)
+        //NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);

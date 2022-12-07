@@ -14,11 +14,6 @@
         android:name="com.example.team_7_tcss_450.ui.weather.WeeklyForecastFragment"
         android:label="@string/title_weather" />
     <fragment
-        android:id="@+id/navigation_message"
-        android:name="com.example.team_7_tcss_450.ui.chat.ChatFragment"
-        android:label="@string/title_messages"
-        tools:layout="@layout/fragment_chat" />
-    <fragment
         android:id="@+id/navigation_account"
         android:name="com.example.team_7_tcss_450.ui.account.AccountFragment"
         android:label="@string/title_account"
@@ -27,4 +22,25 @@
         android:id="@+id/navigation_contacts"
         android:name="com.example.team_7_tcss_450.ui.contacts.ContactListFragment"
         android:label="@string/title_contacts" />
+    <navigation android:id="@+id/navigation_nested_chat"
+        app:startDestination="@id/navigation_message">
+        <fragment
+            android:id="@+id/navigation_message"
+            android:name="com.example.team_7_tcss_450.ui.chat.ChatPreviewsFragment"
+            android:label="@string/title_messages"
+            tools:layout="@layout/fragment_chat_rooms_list">
+            <action
+                android:id="@+id/action_navigation_message_to_chatFragment"
+                app:destination="@id/chatFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/chatFragment"
+            android:name="com.example.team_7_tcss_450.ui.chat.ChatFragment"
+            android:label="@string/label_chat"
+            tools:layout="@layout/fragment_chat">
+            <argument
+                android:name="chatId"
+                app:argType="integer" />
+        </fragment>
+    </navigation>
 </navigation>

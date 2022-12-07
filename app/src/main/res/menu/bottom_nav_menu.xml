@@ -12,7 +12,7 @@
     android:title="@string/title_weather" />
 
 <item
-    android:id="@+id/navigation_message"
+    android:id="@+id/navigation_nested_chat"
     android:icon="@drawable/ic_message_black_24dp"
     android:title="@string/title_messages" />
 

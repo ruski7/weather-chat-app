@@ -16,8 +16,8 @@
         android:layout_marginBottom="16dp"
         android:autofillHints=""
         android:ems="10"
+        android:hint="@string/hint_text_message"
         android:inputType="textMultiLine|textAutoCorrect|textAutoComplete"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_send"
         app:layout_constraintStart_toStartOf="parent" />
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/content_desc_send_msg"
         android:src="@drawable/ic_send_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -57,7 +57,7 @@
             android:orientation="vertical"
             app:layoutManager="LinearLayoutManager"
             tools:context="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogListFragment"
-            tools:listitem="@layout/fragment_sent_message"/>
+            tools:listitem="@layout/fragment_sent_message" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

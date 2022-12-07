@@ -18,13 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentContactListBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
-import com.example.team_7_tcss_450.ui.weather.WeeklyForecastRecyclerViewAdapter;
-import com.example.team_7_tcss_450.ui.weather.model.WeeklyForecastViewModel;
 
 public class ContactListFragment extends Fragment {
 
@@ -89,7 +86,7 @@ public class ContactListFragment extends Fragment {
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.invite_contact: {
+                    case R.id.chat_add_member: {
                         // TODO: Implement add new contact XML sheet and navigation to said sheet
                         return true;
                     }
