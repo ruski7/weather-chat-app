@@ -20,26 +20,15 @@
             android:padding="3dp"
             android:src="@mipmap/ic_launcher" />
         <TextView
-            android:id="@+id/textName"
-            android:textSize="22sp"
-            android:text="Charles Bryan"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
+            android:id="@+id/textContactName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-        </TextView>
-        <TextView
-            android:id="@+id/textNumber"
-            android:textSize="18sp"
-            android:text="(888) 278 - 8342"
-            android:textAlignment="textEnd"
-            android:textColor="@color/hint_grey"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-        </TextView>
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toRightOf="@id/idIVContact"
+            android:text="Contact Name" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
@@ -23,9 +24,11 @@ import java.util.List;
 public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<ContactListRecyclerViewAdapter.ContactViewHolder> {
 
     private final List<Contact> mValues;
+    private final FragmentManager mFrag;
 
-    public ContactListRecyclerViewAdapter(List<Contact> items) {
+    public ContactListRecyclerViewAdapter(List<Contact> items, FragmentManager frag) {
         mValues = items;
+        mFrag = frag;
     }
 
     @NonNull
@@ -38,10 +41,7 @@ public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<Contact
 
     @Override
     public void onBindViewHolder(final ContactViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        Contact item = holder.mItem;
-        Resources res = holder.mView.getResources();
-        final FragmentContactCardBinding binding = holder.binding;
+        holder.setContact(mValues.get(position));
 
     }
 
@@ -50,7 +50,7 @@ public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<Contact
         return mValues.size();
     }
 
-    public static class ContactViewHolder extends RecyclerView.ViewHolder {
+    public class ContactViewHolder extends RecyclerView.ViewHolder {
         public Contact mItem;
         public View mView;
         public FragmentContactCardBinding binding;
@@ -61,5 +61,11 @@ public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<Contact
             binding = FragmentContactCardBinding.bind(view);
         }
 
+        void setContact(final Contact contact) {
+            mItem = contact;
+            binding.textContactName.setText(contact.getUserName());
+            String contactFullName = contact.getFirstName() + " " + contact.getLastName();
+            binding.textContactName.setText(contactFullName);
+        }
     }
 }

@@ -44,11 +44,9 @@ public class ContactListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         Log.d("fragment_made", "OnCreate Called in ContactListFragment");
         super.onCreate(savedInstanceState);
-
-        ViewModelProvider provider = new ViewModelProvider(requireActivity());
-        mUserModel = provider.get(UserInfoViewModel.class);
-
-        mContactListModel = new ViewModelProvider(requireActivity()).get(ContactListViewModel.class);
+        mContactListModel = new ViewModelProvider(getActivity()).get(ContactListViewModel.class);
+        UserInfoViewModel provider = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+        mContactListModel.connectGet(provider.getJWT());
     }
 
     @Override
@@ -68,12 +66,12 @@ public class ContactListFragment extends Fragment {
         binding.contactList.setLayoutManager(new LinearLayoutManager(context));
 
         mContactListModel.addContactListObserver(getViewLifecycleOwner(), (contactsList) -> {
-            // while we do observe the contact list from ContactListViewModel,
-            // we currently just spawn a list of generated contacts from ContactGenerator.
-            // TODO: replace generated placeholder contacts with real contacts list
-            binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(ContactGenerator.getContactList()));
-        });
-
+                    // while we do observe the contact list from ContactListViewModel,
+                    // we currently just spawn a list of generated contacts from ContactGenerator.
+                    // TODO: replace generated placeholder contacts with real contacts list
+                    binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(contactsList, getActivity().getSupportFragmentManager()));
+//                    binding.idPBLoading.setVisibility(View.GONE);
+                });
         // Add "add new contact" icon to top menu bar
         MenuHost menuHost = requireActivity();
         // Add menu items without using the Fragment Menu APIs
