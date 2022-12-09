@@ -1,4 +1,4 @@
-package com.example.team_7_tcss_450.ui;
+package com.example.team_7_tcss_450.ui.contacts;
 
 import static androidx.databinding.DataBindingUtil.setContentView;
 
