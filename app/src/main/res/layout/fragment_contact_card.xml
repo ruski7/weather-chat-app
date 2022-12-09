@@ -1,45 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contact_card_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/contact_card_root"
     android:layout_margin="8dp"
     app:cardElevation="8dp"
-    app:cardCornerRadius="8dp"
-    >
-    <LinearLayout
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_inner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/text_title"
+        app:layout_constraintTop_toTopOf="@+id/text_title">
+
         <ImageView
-            android:id="@+id/idIVContact"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="8dp"
-            android:padding="3dp"
+            android:id="@+id/contactImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:src="@mipmap/ic_launcher" />
+
+        <!-- take out android:text="asddsad"-->
         <TextView
-            android:id="@+id/textName"
-            android:textSize="22sp"
-            android:text="Charles Bryan"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
+            android:id="@+id/textViewContactName"
+            android:text="asddsad"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/removeButton"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/contactImage"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </TextView>
+        <!-- take out android:text="asddsad"-->
         <TextView
-            android:id="@+id/textNumber"
-            android:textSize="18sp"
-            android:text="(888) 278 - 8342"
-            android:textAlignment="textEnd"
-            android:textColor="@color/hint_grey"
-            android:layout_width="0dp"
+            android:id="@+id/textViewContactUsername"
+            android:text="asddsad"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/removeButton"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/contactImage"
+            app:layout_constraintTop_toBottomOf="@+id/textViewContactName" />
 
-        </TextView>
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+        <ImageButton
+            android:id="@+id/removeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_delete_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
