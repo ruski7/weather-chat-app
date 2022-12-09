@@ -28,7 +28,7 @@
         <!-- take out android:text="asddsad"-->
         <TextView
             android:id="@+id/textViewContactName"
-            android:text="asddsad"
+            android:text="CONTACTNAME"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -43,7 +43,7 @@
         <!-- take out android:text="asddsad"-->
         <TextView
             android:id="@+id/textViewContactUsername"
-            android:text="asddsad"
+            android:text="USERNAME"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

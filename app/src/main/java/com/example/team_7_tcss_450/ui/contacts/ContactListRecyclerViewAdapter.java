@@ -42,12 +42,11 @@ public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<Contact
         Contact item = holder.mItem;
         Resources res = holder.mView.getResources();
         final FragmentContactCardBinding binding = holder.binding;
+        final String fullName = item.getFirstName() + " " + item.getLastName();
 
-//        binding.valueUserName.setText(res.getString(item.getUserName()));
-//        binding.valueFirstName.setText(res.getString(item.getFirstName()));
-//        binding.valueLastName.setText(res.getString(item.getLastName()));
-//        binding.valueEmail.setText(res.getString(item.getEmail()));
-//        binding.valueMemID.setText(res.getString(item.getMemberID()));
+        binding.textViewContactName.setText(fullName);
+        binding.textViewContactUsername.setText(item.getUserName());
+
 
     }
 
