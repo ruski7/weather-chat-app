@@ -22,4 +22,15 @@
     <string name="keys_json_daily_forecast_code">code</string>
     <string name="keys_json_daily_forecast_icon_id">icon</string>
 
+    <!-- JSON keys for contacts -->
+    <string name="keys_json_contact_member_id">memberid</string>
+    <string name="keys_json_contact_first_name">firstname</string>
+    <string name="keys_json_contact_last_name">lastname</string>
+    <string name="keys_json_contact_user_name">username</string>
+    <string name="keys_json_contact_email">email</string>
+
+    <string name="keys_json_contact_list">rows</string>
+
+
+
 </resources>

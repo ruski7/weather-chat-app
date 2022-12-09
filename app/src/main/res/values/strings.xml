@@ -30,6 +30,7 @@
     <string name="base_url_service">https://team7-tcss450-project-service.herokuapp.com/</string>
     <string name="base_url_auth">https://team7-tcss450-project-auth.herokuapp.com/</string>
     <string name="base_url_weather_service">https://team7-tcss450-project-service.herokuapp.com/weatherbit/</string>
+    <string name="base_url_contact_service">https://team7-tcss450-project-service.herokuapp.com/contacts/</string>
 
     <!-- Strings used for weather forecast fragment -->
     <string name="label_weather_max_temp">Max</string>

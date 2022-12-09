@@ -43,6 +43,12 @@ public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<Contact
         Resources res = holder.mView.getResources();
         final FragmentContactCardBinding binding = holder.binding;
 
+//        binding.valueUserName.setText(res.getString(item.getUserName()));
+//        binding.valueFirstName.setText(res.getString(item.getFirstName()));
+//        binding.valueLastName.setText(res.getString(item.getLastName()));
+//        binding.valueEmail.setText(res.getString(item.getEmail()));
+//        binding.valueMemID.setText(res.getString(item.getMemberID()));
+
     }
 
     @Override

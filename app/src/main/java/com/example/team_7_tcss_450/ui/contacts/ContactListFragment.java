@@ -18,10 +18,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentContactListBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
+import com.example.team_7_tcss_450.ui.weather.WeeklyForecastRecyclerViewAdapter;
 
 public class ContactListFragment extends Fragment {
 
@@ -64,11 +66,17 @@ public class ContactListFragment extends Fragment {
 
         binding.contactList.setLayoutManager(new LinearLayoutManager(context));
 
+        final RecyclerView rv = binding.contactList;
         mContactListModel.addContactListObserver(getViewLifecycleOwner(), (contactsList) -> {
             // while we do observe the contact list from ContactListViewModel,
             // we currently just spawn a list of generated contacts from ContactGenerator.
             // TODO: replace generated placeholder contacts with real contacts list
-            binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(ContactGenerator.getContactList()));
+//            binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(ContactGenerator.getContactList()));
+
+            // TODO: fix bug when contactList is Empty, there is endless GET calls (only resolved when there is at least one verified contact)
+            rv.setAdapter(new ContactListRecyclerViewAdapter(contactsList));
+            if (contactsList.isEmpty()) {
+                mContactListModel.connectGetContact(mUserModel.getJWT());}
         });
 
         // Add "add new contact" icon to top menu bar

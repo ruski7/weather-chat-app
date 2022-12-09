@@ -60,5 +60,14 @@ public class Contact {
     public int getMemberID() {
         return memberID;
     }
+
+    public String toString(){
+        return "\nusername: " + mUserName +
+                "\nfirstname: " + mFirstName +
+                "\nlastname: " + mLastName +
+                "\nemail: " + mEmail +
+                "\nmemberID: " + memberID;
+    }
+
 }
 
