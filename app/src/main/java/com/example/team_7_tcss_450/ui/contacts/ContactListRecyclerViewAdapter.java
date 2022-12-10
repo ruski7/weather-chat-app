@@ -46,8 +46,6 @@ public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<Contact
 
         binding.textViewContactName.setText(fullName);
         binding.textViewContactUsername.setText(item.getUserName());
-
-
     }
 
     @Override

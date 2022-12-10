@@ -53,7 +53,7 @@ public class ContactFragment extends Fragment {
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.invite_contact: {
+                    case R.id.contact_send_invite: {
                         //navigate to add contacts page
                         return true;
                     }

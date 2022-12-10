@@ -52,6 +52,8 @@
 
     <!-- Strings used for contacts action bar -->
     <string name="action_invite_contact">Invite new contact</string>
+    <string name="dialogue_title_add_new_contact">Add New Contact</string>
+    <string name="hint_contact_email">Email Address</string>
 
     <!-- Strings used for chat feature -->
     <string name="content_desc_send_msg">Send Message</string>

@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.io.RequestQueueSingleton;
+import com.example.team_7_tcss_450.ui.chat.model.ChatPreview;
 import com.example.team_7_tcss_450.ui.weather.model.DailyForecast;
 import com.example.team_7_tcss_450.utils.RequestMaker;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.IntFunction;
 
 public class ContactListViewModel extends AndroidViewModel {
@@ -51,6 +53,38 @@ public class ContactListViewModel extends AndroidViewModel {
     public void addErrorResponseObserver(@NonNull LifecycleOwner owner,
                                          @NonNull Observer<? super JSONObject> observer) {
         mErrorResponse.observe(owner, observer);
+    }
+
+    public void connectGetContactList(final String jwt) {
+        Log.d("c_connect", "GET CALLED");
+        // Generate url for making web service request
+        // URL USES HARDCODED email args, REPLACE ASAP
+        // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
+        final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
+                "?email=test@test.test";
+        System.out.println(url);
+
+        final Request<JSONObject> request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                this::handleResult,
+                error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
+        ) {
+            // Add user JWT token into request header
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>(1);
+                headers.put("authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
     }
 
     private void handleResult(final JSONObject result) {
@@ -91,86 +125,20 @@ public class ContactListViewModel extends AndroidViewModel {
         mContactsList.setValue(mContactsList.getValue());
     }
 
-    public void connectGetContactList(final String jwt) {
-        Log.d("c_connect", "GET CALLED");
-        // Generate url for making web service request
-        // URL USES HARDCODED email args, REPLACE ASAP
-        // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
-        final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "?email=test@test.test";
-        System.out.println(url);
-
-        final Request<JSONObject> request = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                this::handleResult,
-                error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
-        ) {
-            // Add user JWT token into request header
-            @Override
-            public Map<String, String> getHeaders() {
-                final Map<String, String> headers = new HashMap<>(1);
-                headers.put("authorization", jwt);
-                return headers;
-            }
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
-                .addToRequestQueue(request);
-    }
-
-
-    public void connectPostContactAdd(final String jwt) {
-        Log.d("c_connect", "POST CALLED");
-        // Generate url for making web service request
-        // URL USES HARDCODED email args, REPLACE ASAP
-        // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
-        final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "?sender=test@test.test&receiver=testuser@mail.com";
-        System.out.println(url);
-
-        final Request<JSONObject> request = new JsonObjectRequest(
-                Request.Method.PUT,
-                url,
-                null,
-                this::handleResult,
-                error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
-        ) {
-            // Add user JWT token into request header
-            @Override
-            public Map<String, String> getHeaders() {
-                final Map<String, String> headers = new HashMap<>(1);
-                headers.put("authorization", jwt);
-                return headers;
-            }
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
-                .addToRequestQueue(request);
-    }
-
-
-    public void connectPutContactAccept(final String jwt) {
+    public void connectContactAccept(final String jwt) {
         Log.d("c_connect", "PUT CALLED");
         // Generate url for making web service request
         // URL USES HARDCODED email args, REPLACE ASAP
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "?sender=test@test.test&receiver=testuser@mail.com";
+                "?sender=test@test.test&receiver=test1@test.com";
         System.out.println(url);
 
         final Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.PUT,
                 url,
                 null,
-                this::handleResult,
+                null,
                 error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
         ) {
             // Add user JWT token into request header
@@ -190,7 +158,45 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
 
+    public void connectAddContact(final String receiverEmail, final String jwt) {
+        Log.d("c_connect", "POST CALLED");
+        // Generate url for making web service request
+        // URL USES HARDCODED email args, REPLACE ASAP
+        // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
+        final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
+                "?sender=test@test.test&receiver=" + receiverEmail;
+        System.out.println(url);
+        final String senderEmail = "test@test.test";
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("sender", senderEmail);
+            body.put("receiver", receiverEmail);
+        } catch (JSONException e) {
+            Log.e("CHAT MODEL", "Failed to parse chat name on connectAddNewChat()");
+        }
 
 
-
+        final Request<JSONObject> request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                body,
+                null,
+                error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
+        ) {
+            // Add user JWT token into request header
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>(1);
+                headers.put("authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
 }
