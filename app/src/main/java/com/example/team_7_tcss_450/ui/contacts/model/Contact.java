@@ -1,4 +1,4 @@
-package com.example.team_7_tcss_450.ui.contacts;
+package com.example.team_7_tcss_450.ui.contacts.model;
 
 
 public class Contact {
@@ -67,6 +67,14 @@ public class Contact {
                 "\nlastname: " + mLastName +
                 "\nemail: " + mEmail +
                 "\nmemberID: " + memberID;
+    }
+
+    public Boolean equals(Contact contact){
+        return this.mUserName.equals(contact.getUserName()) &&
+                this.mFirstName.equals(contact.getFirstName()) &&
+                this.mLastName.equals(contact.getLastName()) &&
+                this.mEmail.equals(contact.getEmail()) &&
+                this.memberID == contact.getMemberID();
     }
 
 }

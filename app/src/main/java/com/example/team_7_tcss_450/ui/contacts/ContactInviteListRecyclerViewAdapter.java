@@ -9,24 +9,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
-import com.example.team_7_tcss_450.databinding.FragmentContactSentCardBinding;
+import com.example.team_7_tcss_450.databinding.FragmentContactInviteCardBinding;
+import com.example.team_7_tcss_450.ui.contacts.model.Contact;
 
 import java.util.List;
 
-public class ContactSentListRecyclerViewAdapter extends RecyclerView.Adapter<ContactSentListRecyclerViewAdapter.ContactViewHolder> {
+public class ContactInviteListRecyclerViewAdapter extends RecyclerView.Adapter<ContactInviteListRecyclerViewAdapter.ContactViewHolder> {
 
     private final List<Contact> mValues;
 
-    public ContactSentListRecyclerViewAdapter(List<Contact> items) {
+    public ContactInviteListRecyclerViewAdapter(List<Contact> items) {
         mValues = items;
     }
 
     @NonNull
     @Override
-    public ContactSentListRecyclerViewAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ContactSentListRecyclerViewAdapter.ContactViewHolder(LayoutInflater
+    public ContactInviteListRecyclerViewAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ContactInviteListRecyclerViewAdapter.ContactViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_contact_sent_card, parent, false));
+                .inflate(R.layout.fragment_contact_invite_card, parent, false));
     }
 
     @Override
@@ -34,7 +35,7 @@ public class ContactSentListRecyclerViewAdapter extends RecyclerView.Adapter<Con
         holder.mItem = mValues.get(position);
         Contact item = holder.mItem;
         Resources res = holder.mView.getResources();
-        final FragmentContactSentCardBinding binding = holder.binding;
+        final FragmentContactInviteCardBinding binding = holder.binding;
         final String fullName = item.getFirstName() + " " + item.getLastName();
 
         binding.textViewContactName.setText(fullName);
@@ -49,13 +50,12 @@ public class ContactSentListRecyclerViewAdapter extends RecyclerView.Adapter<Con
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
         public Contact mItem;
         public View mView;
-        public FragmentContactSentCardBinding binding;
+        public FragmentContactInviteCardBinding binding;
 
         public ContactViewHolder(View view) {
             super(view);
             mView = view;
-            binding = FragmentContactSentCardBinding.bind(view);
+            binding = FragmentContactInviteCardBinding.bind(view);
         }
-
     }
 }

@@ -9,14 +9,14 @@
         app:showAsAction="ifRoom|withText" />
 
     <item
-        android:id="@+id/action_contact_pending_invites"
-        android:title="@string/action_view_pending_contacts"
+        android:id="@+id/action_contact_invites"
+        android:title="@string/action_view_invite_contacts"
         android:orderInCategory="98"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_contact_sent_invites"
-        android:title="@string/action_view_sent_contacts"
+        android:id="@+id/action_contact_requests"
+        android:title="@string/action_view_request_contacts"
         android:orderInCategory="99"
         app:showAsAction="never" />
 

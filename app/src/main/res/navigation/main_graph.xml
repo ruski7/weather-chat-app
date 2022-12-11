@@ -26,11 +26,11 @@
             android:id="@+id/action_navigation_contacts_to_contactFragment"
             app:destination="@id/contactFragment" />
         <action
-            android:id="@+id/action_navigation_contacts_to_contactPendingListFragment"
-            app:destination="@id/navigation_pending_contacts" />
+            android:id="@+id/action_navigation_contacts_to_navigation_invite_contacts"
+            app:destination="@id/navigation_invite_contacts" />
         <action
-            android:id="@+id/action_navigation_contacts_to_contactSentListFragment2"
-            app:destination="@id/navigation_sent_contacts" />
+            android:id="@+id/action_navigation_contacts_to_navigation_request_contacts"
+            app:destination="@id/navigation_request_contacts" />
     </fragment>
     <navigation android:id="@+id/navigation_nested_chat"
         app:startDestination="@id/navigation_message">
@@ -54,25 +54,25 @@
         </fragment>
     </navigation>
     <fragment
-        android:id="@+id/navigation_pending_contacts"
-        android:name="com.example.team_7_tcss_450.ui.contacts.ContactPendingListFragment"
+        android:id="@+id/navigation_invite_contacts"
+        android:name="com.example.team_7_tcss_450.ui.contacts.ContactInviteListFragment"
         android:label="@string/title_contacts"
-        tools:layout="@layout/fragment_contact_pending_list">
+        tools:layout="@layout/fragment_contact_invite_list">
         <action
-            android:id="@+id/action_contactPendingListFragment_to_contactFragment"
-            app:destination="@id/contactFragment" />
+            android:id="@+id/action_navigation_invite_contacts_to_navigation_request_contacts"
+            app:destination="@id/navigation_request_contacts" />
     </fragment>
     <fragment
-        android:id="@+id/navigation_sent_contacts"
-        android:name="com.example.team_7_tcss_450.ui.contacts.ContactSentListFragment"
+        android:id="@+id/navigation_request_contacts"
+        android:name="com.example.team_7_tcss_450.ui.contacts.ContactRequestListFragment"
         android:label="@string/title_contacts"
-        tools:layout="@layout/fragment_contact_sent_list">
+        tools:layout="@layout/fragment_contact_request_list">
         <action
-            android:id="@+id/action_contactSentListFragment_to_contactFragment"
-            app:destination="@id/contactFragment" />
+            android:id="@+id/action_navigation_request_contacts_to_navigation_invite_contacts"
+            app:destination="@id/navigation_invite_contacts" />
     </fragment>
     <fragment
         android:id="@+id/contactFragment"
-        android:name="com.example.team_7_tcss_450.ui.contacts.ContactFragment"
+        android:name="com.example.team_7_tcss_450.ui.contacts.model.ContactFragment"
         android:label="ContactFragment" />
 </navigation>

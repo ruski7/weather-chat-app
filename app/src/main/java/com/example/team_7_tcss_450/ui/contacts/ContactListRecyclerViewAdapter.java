@@ -1,23 +1,17 @@
 package com.example.team_7_tcss_450.ui.contacts;
 
-import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
-import com.example.team_7_tcss_450.databinding.FragmentContactBinding;
 import com.example.team_7_tcss_450.databinding.FragmentContactCardBinding;
-import com.example.team_7_tcss_450.databinding.FragmentContactListBinding;
+import com.example.team_7_tcss_450.ui.contacts.model.Contact;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<ContactListRecyclerViewAdapter.ContactViewHolder> {

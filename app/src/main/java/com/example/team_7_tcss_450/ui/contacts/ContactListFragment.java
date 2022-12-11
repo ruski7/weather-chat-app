@@ -28,9 +28,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentContactListBinding;
-import com.example.team_7_tcss_450.databinding.FragmentSignInBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
-import com.example.team_7_tcss_450.ui.weather.WeeklyForecastRecyclerViewAdapter;
+import com.example.team_7_tcss_450.ui.contacts.model.ContactListViewModel;
 
 public class ContactListFragment extends Fragment {
 
@@ -65,8 +64,6 @@ public class ContactListFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return binding.getRoot();
-
-        //return inflater.inflate(R.layout.fragment_contact_list, container, false);
     }
 
     @Override
@@ -88,8 +85,9 @@ public class ContactListFragment extends Fragment {
 
             // TODO: fix bug when contactList is Empty, there is endless GET calls (only resolved when there is at least one verified contact)
             rv.setAdapter(new ContactListRecyclerViewAdapter(contactsList));
-            if (contactsList.isEmpty()) {
-                mContactListModel.connectGetContactList(mUserModel.getJWT());}
+            if (contactsList.isEmpty() &&  (mContactListModel.getContactsStatus().equals(Boolean.FALSE))) {
+                mContactListModel.connectGetContactList(mUserModel.getJWT());
+            }
         });
 
         // Add "add new contact" icon to top menu bar
@@ -109,21 +107,17 @@ public class ContactListFragment extends Fragment {
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.action_contact_send_invite: {
-                        // TODO: Implement add new contact XML sheet and navigation to said sheet
                         showAddContactDialog();
                         return true;
                     }
-                    case R.id.action_contact_sent_invites: {
-                        // TODO: Implement add new contact XML sheet and navigation to said sheet
-                        navigateToSentInvites();
+                    case R.id.action_contact_invites: {
+                        navigateToInvites();
                         return true;
                     }
-                    case R.id.action_contact_pending_invites: {
-                        // TODO: Implement add new contact XML sheet and navigation to said sheet
-                        navigateToPendingInvites();
+                    case R.id.action_contact_requests: {
+                        navigateToRequests();
                         return true;
                     }
-
                     default:
                         return false;
                 }
@@ -131,13 +125,17 @@ public class ContactListFragment extends Fragment {
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
-    private void navigateToPendingInvites() {
+    private void navigateToRequests() {
         //On button click, navigate to Second Home
-
-
+        Navigation.findNavController(requireView()).navigate(
+                ContactListFragmentDirections
+                        .actionNavigationContactsToNavigationRequestContacts());
     }
 
-    private void navigateToSentInvites() {
+    private void navigateToInvites() {
+        Navigation.findNavController(requireView()).navigate(
+                ContactListFragmentDirections
+                        .actionNavigationContactsToNavigationInviteContacts());
     }
 
 

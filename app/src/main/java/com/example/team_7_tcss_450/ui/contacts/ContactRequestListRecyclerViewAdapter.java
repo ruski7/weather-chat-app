@@ -9,25 +9,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
-import com.example.team_7_tcss_450.databinding.FragmentContactCardBinding;
-import com.example.team_7_tcss_450.databinding.FragmentContactPendingCardBinding;
+import com.example.team_7_tcss_450.databinding.FragmentContactRequestCardBinding;
+import com.example.team_7_tcss_450.ui.contacts.model.Contact;
 
 import java.util.List;
 
-public class ContactPendingListRecyclerViewAdapter extends RecyclerView.Adapter<ContactPendingListRecyclerViewAdapter.ContactViewHolder> {
+public class ContactRequestListRecyclerViewAdapter extends RecyclerView.Adapter<ContactRequestListRecyclerViewAdapter.ContactViewHolder> {
 
     private final List<Contact> mValues;
 
-    public ContactPendingListRecyclerViewAdapter(List<Contact> items) {
+    public ContactRequestListRecyclerViewAdapter(List<Contact> items) {
         mValues = items;
     }
 
     @NonNull
     @Override
-    public ContactPendingListRecyclerViewAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ContactPendingListRecyclerViewAdapter.ContactViewHolder(LayoutInflater
+    public ContactRequestListRecyclerViewAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ContactRequestListRecyclerViewAdapter.ContactViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_contact_pending_card, parent, false));
+                .inflate(R.layout.fragment_contact_request_card, parent, false));
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ContactPendingListRecyclerViewAdapter extends RecyclerView.Adapter<
         holder.mItem = mValues.get(position);
         Contact item = holder.mItem;
         Resources res = holder.mView.getResources();
-        final FragmentContactPendingCardBinding binding = holder.binding;
+        final FragmentContactRequestCardBinding binding = holder.binding;
         final String fullName = item.getFirstName() + " " + item.getLastName();
 
         binding.textViewContactName.setText(fullName);
@@ -50,12 +50,13 @@ public class ContactPendingListRecyclerViewAdapter extends RecyclerView.Adapter<
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
         public Contact mItem;
         public View mView;
-        public FragmentContactPendingCardBinding binding;
+        public FragmentContactRequestCardBinding binding;
 
         public ContactViewHolder(View view) {
             super(view);
             mView = view;
-            binding = FragmentContactPendingCardBinding.bind(view);
+            binding = FragmentContactRequestCardBinding.bind(view);
         }
+
     }
 }

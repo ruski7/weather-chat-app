@@ -52,8 +52,8 @@
 
     <!-- Strings used for contacts action bar -->
     <string name="action_invite_contact">Invite New Contact</string>
-    <string name="action_view_pending_contacts">Pending Invites</string>
-    <string name="action_view_sent_contacts">Sent Invites</string>
+    <string name="action_view_request_contacts">Requests</string>
+    <string name="action_view_invite_contacts">Invites</string>
     <string name="dialogue_title_add_new_contact">Add New Contact</string>
     <string name="hint_contact_email">Email Address</string>
 
