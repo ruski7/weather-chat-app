@@ -86,9 +86,11 @@ public class ContactRequestListFragment extends Fragment {
 //            binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(ContactGenerator.getContactList()));
 
             // TODO: fix bug when contactList is Empty, there is endless GET calls (only resolved when there is at least one verified contact)
-            rv.setAdapter(new ContactListRecyclerViewAdapter(contactsList));
-            if (contactsList.isEmpty() &&  (mContactListModel.getRequestStatus().equals(Boolean.FALSE))) {
-                mContactListModel.connectGetContactRequestList(mUserModel.getJWT());}
+            rv.setAdapter(new ContactListRecyclerViewAdapter(
+                    contactsList,
+                    mUserModel.getEmail()));
+            if (contactsList.isEmpty() &&  !mContactListModel.getRequestStatus()) {
+                mContactListModel.connectGetContactRequestList(mUserModel.getJWT(), mUserModel.getEmail());}
         });
 
         // Add "add new contact" icon to top menu bar

@@ -10,6 +10,7 @@ import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,11 +20,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team_7_tcss_450.R;
+import com.example.team_7_tcss_450.databinding.FragmentContactBinding;
+import com.example.team_7_tcss_450.databinding.FragmentContactListBinding;
+import com.example.team_7_tcss_450.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ContactFragment extends Fragment {
+
+    public ContactFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +44,24 @@ public class ContactFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ContactFragmentArgs args = ContactFragmentArgs.fromBundle(getArguments());
+        FragmentContactBinding binding = FragmentContactBinding.bind(getView());
+
+
+
+
+        final String fullName = args.getContact().getFirstName() + args.getContact().getLastName();
+        final String userName = args.getContact().getUserName();
+        final String email = "Email : " + args.getContact().getEmail();
+        final int memberID = args.getContact().getMemberID();
+        final String memberID_String = "MemberID: " + memberID;
+
+
+        System.out.println(fullName);
+        binding.contactFullName.setText(fullName);
+        binding.contactUserName.setText(userName);
+        binding.contactEmail.setText(email);
+        binding.contactMemberID.setText(memberID_String);
 
         // Correct: Top Menu is not needed as this fragment should be a full view on the users contact information.
 

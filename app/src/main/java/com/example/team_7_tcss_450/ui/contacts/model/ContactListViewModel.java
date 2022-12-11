@@ -74,7 +74,7 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     // Gets a list of all contacts associated with the users email (verified)
-    public void connectGetContactList(final String jwt) {
+    public void connectGetContactList(final String jwt, final String email) {
         Log.d("c_connect", "GET CALLED");
 
         mContactsListPending.setValue(Boolean.TRUE);
@@ -83,7 +83,7 @@ public class ContactListViewModel extends AndroidViewModel {
         // URL USES HARDCODED email args, REPLACE ASAP
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "?email=test@test.test";
+                "?email=" + email;
         System.out.println(url);
 
         final Request<JSONObject> request = new JsonObjectRequest(
@@ -110,7 +110,7 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     // Get a list of all __contacts invites__ that have been sent to our user (inbound)
-    public void connectGetContactInviteList(final String jwt) {
+    public void connectGetContactInviteList(final String jwt, final String email) {
         Log.d("c_connect", "GET CALLED");
 
         mContactsInviteListPending.setValue(Boolean.TRUE);
@@ -119,7 +119,7 @@ public class ContactListViewModel extends AndroidViewModel {
         // URL USES HARDCODED email args, REPLACE ASAP
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "invites/?email=test@test.test";
+                "invites/?email=" + email;
         System.out.println(url);
 
         final Request<JSONObject> request = new JsonObjectRequest(
@@ -146,7 +146,7 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     // Get a list of all __contacts requests__ that our user has received to other users (outbound)
-    public void connectGetContactRequestList(final String jwt) {
+    public void connectGetContactRequestList(final String jwt, final String email) {
         Log.d("c_connect", "GET CALLED");
 
         mContactsRequestListPending.setValue(Boolean.TRUE);
@@ -155,7 +155,7 @@ public class ContactListViewModel extends AndroidViewModel {
         // URL USES HARDCODED email args, REPLACE ASAP
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "requests/?email=test@test.test";
+                "requests/?email=" + email;
         System.out.println(url);
 
         final Request<JSONObject> request = new JsonObjectRequest(
@@ -182,13 +182,13 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     // Connects to the backend to accepted an invite to the user if such exists
-    public void connectContactAccept(final String jwt) {
+    public void connectContactAccept(final String jwt, final String email) {
         Log.d("c_connect", "PUT CALLED");
         // Generate url for making web service request
         // URL USES HARDCODED email args, REPLACE ASAP
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "?sender=test@test.test&receiver=test1@test.com";
+                "?sender=test@test.test&receiver=" + email;
         System.out.println(url);
 
         final Request<JSONObject> request = new JsonObjectRequest(
@@ -322,15 +322,7 @@ public class ContactListViewModel extends AndroidViewModel {
                             memID
                     );
 
-
-                    if(mContactsRequestList.getValue().size() == 0){
-                        Objects.requireNonNull(mContactsRequestList.getValue()).add(newContact);
-                    }
-                    // Attempts to prevent repeated data being added by comparing contacts from the current list with the incoming list
-                    else if((mContactsRequestList.getValue().size() > 0) && (!Objects.requireNonNull(mContactsRequestList.getValue()).get(i-1).equals(newContact))){
-                        //Add new Contact object to add into contact list
-                        Objects.requireNonNull(mContactsRequestList.getValue()).add(newContact);
-                    }
+                    Objects.requireNonNull(mContactsRequestList.getValue()).add(newContact);
 
                     System.out.println(JSON_Contact_List.get(i));
                 }

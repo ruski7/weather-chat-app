@@ -87,8 +87,8 @@ public class ContactInviteListFragment extends Fragment {
 
             // TODO: fix bug when contactList is Empty, there is endless GET calls (only resolved when there is at least one verified contact)
             rv.setAdapter(new ContactInviteListRecyclerViewAdapter(contactsInviteList));
-            if (contactsInviteList.isEmpty() &&  (mContactListModel.getInviteStatus().equals(Boolean.FALSE))) {
-                mContactListModel.connectGetContactInviteList(mUserModel.getJWT());}
+            if (contactsInviteList.isEmpty() && !mContactListModel.getInviteStatus()) {
+                mContactListModel.connectGetContactInviteList(mUserModel.getJWT(), mUserModel.getEmail());}
         });
 
         // Add "add new contact" icon to top menu bar

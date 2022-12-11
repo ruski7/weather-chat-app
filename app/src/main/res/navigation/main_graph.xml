@@ -74,5 +74,9 @@
     <fragment
         android:id="@+id/contactFragment"
         android:name="com.example.team_7_tcss_450.ui.contacts.model.ContactFragment"
-        android:label="ContactFragment" />
+        android:label="ContactFragment" >
+        <argument
+            android:name="contact"
+            app:argType="com.example.team_7_tcss_450.ui.contacts.model.Contact" />
+    </fragment>
 </navigation>
