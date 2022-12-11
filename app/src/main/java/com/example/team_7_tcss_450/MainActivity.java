@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_sign_out) {
             signOut();
+        } else if(id == R.id.action_contact_pending_invites){
+
         }
         return super.onOptionsItemSelected(item);
     }

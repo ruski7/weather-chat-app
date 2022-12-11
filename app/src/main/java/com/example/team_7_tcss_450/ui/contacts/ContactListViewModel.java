@@ -55,6 +55,7 @@ public class ContactListViewModel extends AndroidViewModel {
         mErrorResponse.observe(owner, observer);
     }
 
+    // Gets a list of all contacts associated with the users email (verified)
     public void connectGetContactList(final String jwt) {
         Log.d("c_connect", "GET CALLED");
         // Generate url for making web service request
@@ -62,6 +63,72 @@ public class ContactListViewModel extends AndroidViewModel {
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
                 "?email=test@test.test";
+        System.out.println(url);
+
+        final Request<JSONObject> request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                this::handleResult,
+                error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
+        ) {
+            // Add user JWT token into request header
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>(1);
+                headers.put("authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    // Get a list of all received contacts invites that have been sent to our user (inbound invite)
+    public void connectGetContactPendingList(final String jwt) {
+        Log.d("c_connect", "GET CALLED");
+        // Generate url for making web service request
+        // URL USES HARDCODED email args, REPLACE ASAP
+        // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
+        final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
+                "pending/?email=test@test.test";
+        System.out.println(url);
+
+        final Request<JSONObject> request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                this::handleResult,
+                error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
+        ) {
+            // Add user JWT token into request header
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>(1);
+                headers.put("authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    // Get a list of all sent contacts invites that our user has sent to other users (outbound invite)
+    public void connectGetContactSentList(final String jwt) {
+        Log.d("c_connect", "GET CALLED");
+        // Generate url for making web service request
+        // URL USES HARDCODED email args, REPLACE ASAP
+        // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
+        final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
+                "sent/?email=test@test.test";
         System.out.println(url);
 
         final Request<JSONObject> request = new JsonObjectRequest(

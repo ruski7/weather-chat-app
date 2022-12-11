@@ -1,19 +1,8 @@
 package com.example.team_7_tcss_450.ui.contacts;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,34 +11,43 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentContactListBinding;
-import com.example.team_7_tcss_450.databinding.FragmentSignInBinding;
+import com.example.team_7_tcss_450.databinding.FragmentContactPendingListBinding;
+import com.example.team_7_tcss_450.databinding.FragmentContactSentListBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
-import com.example.team_7_tcss_450.ui.weather.WeeklyForecastRecyclerViewAdapter;
 
-public class ContactListFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ContactSentListFragment extends Fragment {
 
     private ContactListViewModel mContactListModel;
     private UserInfoViewModel mUserModel;
-    private FragmentContactListBinding binding;
-
+    private FragmentContactSentListBinding binding;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ContactListFragment() {
+    public ContactSentListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("fragment_made", "OnCreate Called in ContactListFragment");
+        Log.d("fragment_made", "OnCreate Called in ContactSentListFragment");
         super.onCreate(savedInstanceState);
 
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
@@ -59,27 +57,24 @@ public class ContactListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentContactListBinding.inflate(inflater);
-
+        binding = FragmentContactSentListBinding.inflate(inflater);
         // Inflate the layout for this fragment
         return binding.getRoot();
-
-        //return inflater.inflate(R.layout.fragment_contact_list, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FragmentContactListBinding binding = FragmentContactListBinding.bind(requireView());
+        FragmentContactSentListBinding binding = FragmentContactSentListBinding.bind(requireView());
 
         // Set the adapter
         Context context = view.getContext();
 
-        binding.contactList.setLayoutManager(new LinearLayoutManager(context));
+        binding.contactSentList.setLayoutManager(new LinearLayoutManager(context));
 
-        final RecyclerView rv = binding.contactList;
+        final RecyclerView rv = binding.contactSentList;
         mContactListModel.addContactListObserver(getViewLifecycleOwner(), (contactsList) -> {
             // while we do observe the contact list from ContactListViewModel,
             // we currently just spawn a list of generated contacts from ContactGenerator.
@@ -110,17 +105,17 @@ public class ContactListFragment extends Fragment {
                 switch (menuItem.getItemId()) {
                     case R.id.action_contact_send_invite: {
                         // TODO: Implement add new contact XML sheet and navigation to said sheet
-                        showAddContactDialog();
+                        //showAddContactDialog();
                         return true;
                     }
                     case R.id.action_contact_sent_invites: {
                         // TODO: Implement add new contact XML sheet and navigation to said sheet
-                        navigateToSentInvites();
+                        System.out.println("sent invites ->");
                         return true;
                     }
                     case R.id.action_contact_pending_invites: {
                         // TODO: Implement add new contact XML sheet and navigation to said sheet
-                        navigateToPendingInvites();
+                        System.out.println("pending invites");
                         return true;
                     }
 
@@ -129,48 +124,6 @@ public class ContactListFragment extends Fragment {
                 }
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-    }
-
-    private void navigateToPendingInvites() {
-        //On button click, navigate to Second Home
-
-
-    }
-
-    private void navigateToSentInvites() {
-    }
-
-
-    public void showAddContactDialog() {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true);
-        dialog.setContentView(R.layout.fragment_add_contact_dialog);
-        // Try to play with this later instead of using dialog.findViewById
-        /* final FragmentAddChatDialogBinding dialogBinding =
-                FragmentAddChatDialogBinding.bind(requireView());*/
-
-        final EditText contactEditText = dialog.findViewById(R.id.edit_contact_email);
-
-        Button confirmButton = dialog.findViewById(R.id.confirm_add_contact);
-        Button cancelButton = dialog.findViewById(R.id.cancel_add_contact);
-
-        confirmButton.setOnClickListener(view -> {
-            final String contactEmail = contactEditText.getText().toString();
-            if (contactEmail.length() == 0)
-                contactEditText.setError("Empty Title");
-            else {
-                mContactListModel.connectAddContact(contactEmail, mUserModel.getJWT());
-                dialog.dismiss();
-            }
-            Log.d("CHAT PREVIEWS", "DIALOG CONFIRM BUTTON CLICKED");
-        });
-
-        cancelButton.setOnClickListener(view -> {
-            dialog.cancel();
-        });
-
-        dialog.show();
     }
 
 }

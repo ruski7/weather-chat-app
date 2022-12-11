@@ -53,7 +53,12 @@ public class ContactFragment extends Fragment {
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.contact_send_invite: {
+                    case R.id.action_contact_send_invite: {
+                        //navigate to add contacts page
+                        System.out.println("NAVIGATION TO SSEND CONTACT INVITATION");
+                        return true;
+                    }
+                    case R.id.action_contact_pending_invites: {
                         //navigate to add contacts page
                         return true;
                     }
@@ -63,5 +68,13 @@ public class ContactFragment extends Fragment {
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
+
+
+    /*
+    Navigation.findNavController(requireView()).navigate(
+                SignInFragmentDirections
+                        .actionSignInFragmentToMainActivity(email, jwt)
+        );
+     */
 
 }

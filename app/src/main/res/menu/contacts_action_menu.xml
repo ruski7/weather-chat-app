@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/app_bar_search"
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom|withText" />
+
     <item
-        android:id="@+id/contact_send_invite"
+        android:id="@+id/action_contact_pending_invites"
+        android:title="@string/action_view_pending_contacts"
+        android:orderInCategory="98"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_contact_sent_invites"
+        android:title="@string/action_view_sent_contacts"
+        android:orderInCategory="99"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_contact_send_invite"
         android:icon="@drawable/ic_add_contact"
         android:title="@string/action_invite_contact"
         app:showAsAction="ifRoom" />
