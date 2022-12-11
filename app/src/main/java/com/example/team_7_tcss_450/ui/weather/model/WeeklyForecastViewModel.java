@@ -1,6 +1,7 @@
 package com.example.team_7_tcss_450.ui.weather.model;
 
 import android.app.Application;
+import android.location.Location;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -100,13 +101,15 @@ public class WeeklyForecastViewModel extends AndroidViewModel {
         mDailyForecastList.setValue(mDailyForecastList.getValue());
     }
 
-    public void connectGetWeeklyForecast(final String jwt) {
+    public void connectGetWeeklyForecast(final String jwt, final Location location) {
         Log.d("f_connect", "GET CALLED");
+
+
         // Generate url for making web service request
         // URL USES HARDCODED latitude and longitude args, REPLACE ASAP
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_weather_service) +
-                "test?lat=42&lon=70";
+                "forecast?" + "lat=" + location.getLatitude() + "&lon=" + location.getLongitude();
 
         final Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.GET,

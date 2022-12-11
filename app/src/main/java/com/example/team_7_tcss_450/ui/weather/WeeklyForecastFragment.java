@@ -16,10 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.team_7_tcss_450.MainActivity;
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentForecastListBinding;
+import com.example.team_7_tcss_450.databinding.FragmentHomeBinding;
+import com.example.team_7_tcss_450.databinding.FragmentSignInBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
 import com.example.team_7_tcss_450.ui.weather.model.WeeklyForecastViewModel;
+import com.example.team_7_tcss_450.model.LocationViewModel;
 
 /**
  * A fragment representing a list of Items.
@@ -33,7 +37,7 @@ public class WeeklyForecastFragment extends Fragment {
 
     private WeeklyForecastViewModel mForecastListModel;
     private UserInfoViewModel mUserModel;
-
+    private LocationViewModel mLocation;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -69,6 +73,9 @@ public class WeeklyForecastFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FragmentForecastListBinding binding = FragmentForecastListBinding.bind(requireView());
 
+        mLocation = new ViewModelProvider(getActivity())
+                .get(LocationViewModel.class);
+
         // Set the adapter
         Context context = view.getContext();
         if (mColumnCount <= 1) {
@@ -81,7 +88,8 @@ public class WeeklyForecastFragment extends Fragment {
         mForecastListModel.addDailyForecastListObserver(getViewLifecycleOwner(), (forecastList) -> {
             rv.setAdapter(new WeeklyForecastRecyclerViewAdapter(forecastList));
             if (forecastList.isEmpty())
-                mForecastListModel.connectGetWeeklyForecast(mUserModel.getJWT());
+
+                mForecastListModel.connectGetWeeklyForecast(mUserModel.getJWT(), mLocation.getCurrentLocation());
         });
 
     }
