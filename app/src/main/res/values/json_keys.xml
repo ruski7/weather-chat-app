@@ -22,4 +22,15 @@
     <string name="keys_json_daily_forecast_code">code</string>
     <string name="keys_json_daily_forecast_icon_id">icon</string>
 
+    <!-- JSON keys for hourly weather (based on hourly weather forecast service) -->
+    <string name="keys_json_hourly_forecast_list">data</string>
+    <string name="keys_json_hourly_forecast_avg_temp">temp</string>
+    <string name="keys_json_hourly_forecast_precipitation">pop</string>
+    <string name="keys_json_hourly_forecast_humidity">humidity</string>
+    <string name="keys_json_hourly_forecast_wind_spd">wind_spd</string>
+    <string name="keys_json_hourly_forecast_date">dt</string>
+    <string name="keys_json_hourly_forecast_description">description</string>
+    <string name="keys_json_hourly_forecast_code">code</string>
+    <string name="keys_json_hourly_forecast_city">city</string>
+
 </resources>
