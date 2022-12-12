@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.io.RequestQueueSingleton;
@@ -192,7 +191,7 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     // Connects to the backend to accepted an invite to the user if such exists
-    public void connectContactAccept(final String jwt, final String senderEmail, final String receiverEmail, int position) {
+    public void connectAcceptContact(final String jwt, final String senderEmail, final String receiverEmail, int position) {
         Log.d("c_connect", "PUT CALLED");
         // Generate url for making web service request
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service);
@@ -229,8 +228,10 @@ public class ContactListViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    // Doesn't work, not sure why.
+    // Tired localhost and live link on POSTMAN, everything checks out, also on direct DB connection.
     // Deletes Requested Contact!
-    public void connectDeleteContact(final String jwt, final String emailA, final String emailB) {
+    public void connectDeleteContact(final String jwt, final String emailA, final String emailB, int position) {
         Log.d("c_connect", "DELETE CALLED");
         // Generate url for making web service request
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service);
@@ -244,11 +245,13 @@ public class ContactListViewModel extends AndroidViewModel {
             Log.e("CHAT MODEL", "Failed to parse chat name on connectDeleteContact()");
         }
 
+        System.out.println(body);
+
         final Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.DELETE,
                 url,
                 body,
-                null,
+                result -> handleDelete(result, position),
                 error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
         ) {
             // Add user JWT token into request header
@@ -286,6 +289,7 @@ public class ContactListViewModel extends AndroidViewModel {
             Log.e("CHAT MODEL", "Failed to parse chat name on connectAddNewChat()");
         }
 
+        System.out.println(body);
 
         final Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.POST,
@@ -439,7 +443,8 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     // Removes Contact from invites list, also adds into verified contact
-    private void handleDelete(final JSONObject result){
+    private void handleDelete(final JSONObject result, int position){
+        Objects.requireNonNull(mContactsInviteList.getValue()).remove(position);
         mContactsInviteList.setValue(mContactsInviteList.getValue());
         mContactsList.setValue(mContactsList.getValue());
     }

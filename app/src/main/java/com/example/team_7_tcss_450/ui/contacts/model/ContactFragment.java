@@ -2,6 +2,8 @@ package com.example.team_7_tcss_450.ui.contacts.model;
 
 import static androidx.databinding.DataBindingUtil.setContentView;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentContactBinding;
@@ -46,6 +49,7 @@ public class ContactFragment extends Fragment {
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mContactListModel = new ViewModelProvider(requireActivity()).get(ContactListViewModel.class);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     @Override
@@ -63,7 +67,7 @@ public class ContactFragment extends Fragment {
         FragmentContactBinding binding = FragmentContactBinding.bind(getView());
 
         final String fullName = args.getContact().getFirstName() + " " + args.getContact().getLastName();
-        final String userName = args.getContact().getUserName();
+        final String userName = "UserName: " + args.getContact().getUserName();
         email = args.getContact().getEmail(); // nasty workaround but we rushing lol
         final String emailLabel = "Email: " + email;
         final int memberID = args.getContact().getMemberID();
@@ -72,14 +76,14 @@ public class ContactFragment extends Fragment {
         binding.contactFullName.setText(fullName);
         binding.contactUserName.setText(userName);
         binding.contactEmail.setText(emailLabel);
-        binding.contactMemberID.setText(memberID_String);
+//        binding.contactMemberID.setText(memberID_String);
 
         binding.deleteContactButton.setOnClickListener(this::deleteContact);
     }
 
     private void deleteContact(View view) {
         System.out.println("DELETE MEEE!");
-        mContactListModel.connectDeleteContact(mUserModel.getJWT(), mUserModel.getEmail(), email);
+        //mContactListModel.connectDeleteContact(mUserModel.getJWT(), mUserModel.getEmail(), email);
 //        Navigation.findNavController(requireView()).navigate(R.id.navigation_contacts);
     }
 

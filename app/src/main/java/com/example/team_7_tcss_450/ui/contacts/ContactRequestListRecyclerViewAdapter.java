@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
+import com.example.team_7_tcss_450.databinding.FragmentContactInviteCardBinding;
 import com.example.team_7_tcss_450.databinding.FragmentContactRequestCardBinding;
 import com.example.team_7_tcss_450.ui.contacts.model.Contact;
 
@@ -18,18 +19,21 @@ public class ContactRequestListRecyclerViewAdapter extends RecyclerView.Adapter<
 
     private final List<Contact> mValues;
     private final String mUserEmail;
+    private final ContactRequestListRecyclerViewAdapter.OnContactRequestListener mOnContactRequestListener;
 
-    public ContactRequestListRecyclerViewAdapter(List<Contact> items, String email) {
+    public ContactRequestListRecyclerViewAdapter(List<Contact> items, String email, ContactRequestListRecyclerViewAdapter.OnContactRequestListener onContactRequestListener) {
         mValues = items;
         mUserEmail = email;
+        mOnContactRequestListener = onContactRequestListener;
     }
 
     @NonNull
     @Override
     public ContactRequestListRecyclerViewAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ContactRequestListRecyclerViewAdapter.ContactViewHolder(LayoutInflater
+        View view =  LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_contact_request_card, parent, false));
+                .inflate(R.layout.fragment_contact_request_card, parent, false);
+        return new ContactRequestListRecyclerViewAdapter.ContactViewHolder(view, mOnContactRequestListener);
     }
 
     @Override
@@ -42,22 +46,39 @@ public class ContactRequestListRecyclerViewAdapter extends RecyclerView.Adapter<
 
         binding.textViewContactName.setText(fullName);
         binding.textViewContactUsername.setText(item.getUserName());
+
+        holder.onCancelRequest(position);
     }
+
+
 
     @Override
     public int getItemCount() {
         return mValues.size();
     }
 
+    public interface OnContactRequestListener {
+        void cancelRequest(int position);
+    }
+
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
+
         public Contact mItem;
         public View mView;
         public FragmentContactRequestCardBinding binding;
+        public ContactRequestListRecyclerViewAdapter.OnContactRequestListener onContactRequestListener;
 
-        public ContactViewHolder(View view) {
+        public ContactViewHolder(View view, ContactRequestListRecyclerViewAdapter.OnContactRequestListener onContactRequestListener) {
             super(view);
             mView = view;
             binding = FragmentContactRequestCardBinding.bind(view);
+            this.onContactRequestListener = onContactRequestListener;
+        }
+
+        void onCancelRequest(final int position) {
+            binding.cancelContactButton.setOnClickListener(view -> {
+                onContactRequestListener.cancelRequest(position);
+            });
         }
 
     }
