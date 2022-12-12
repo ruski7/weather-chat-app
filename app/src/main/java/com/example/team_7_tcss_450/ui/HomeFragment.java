@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import com.example.team_7_tcss_450.R;
+import com.example.team_7_tcss_450.model.LocationViewModel;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.example.team_7_tcss_450.databinding.FragmentHomeBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
@@ -42,5 +43,6 @@ public class HomeFragment extends Fragment {
 
         FragmentHomeBinding.bind(requireView()).editHome.setText(
                 getResources().getString(R.string.home_greeting, userInfoModel.getEmail()));
+
     }
 }
