@@ -8,8 +8,8 @@
     tools:context=".ui.contacts.ContactInviteListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/contact_pending_list"
-        android:name="com.example.team_7_tcss_450.ui.contacts.ContactsPendingListFragment"
+        android:id="@+id/contact_invite_list"
+        android:name="com.example.team_7_tcss_450.ui.contacts.ContactsInviteListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.example.team_7_tcss_450.ui.ContactPendingListFragment"
+        tools:context="com.example.team_7_tcss_450.ui.ContactInviteListFragment"
         tools:listitem="@layout/fragment_contact_invite_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

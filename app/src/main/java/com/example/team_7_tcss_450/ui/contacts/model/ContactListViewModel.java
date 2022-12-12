@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.io.RequestQueueSingleton;
@@ -194,11 +195,8 @@ public class ContactListViewModel extends AndroidViewModel {
     public void connectContactAccept(final String jwt, final String senderEmail, final String receiverEmail, int position) {
         Log.d("c_connect", "PUT CALLED");
         // Generate url for making web service request
-        // URL USES HARDCODED email args, REPLACE ASAP
-        // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service);
         System.out.println(url);
-
 
         JSONObject body = new JSONObject();
         try {
@@ -207,9 +205,6 @@ public class ContactListViewModel extends AndroidViewModel {
         } catch (JSONException e) {
             Log.e("CHAT MODEL", "Failed to parse chat name on connectAddNewChat()");
         }
-
-        System.out.println(senderEmail);
-        System.out.println(receiverEmail);
 
         final Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.PUT,
@@ -238,8 +233,7 @@ public class ContactListViewModel extends AndroidViewModel {
     public void connectDeleteContact(final String jwt, final String emailA, final String emailB) {
         Log.d("c_connect", "DELETE CALLED");
         // Generate url for making web service request
-        final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "?sender=" + emailA + "&receiver=" + emailB;
+        final String url = getApplication().getResources().getString(R.string.base_url_contact_service);
         System.out.println(url);
 
         JSONObject body = new JSONObject();
@@ -247,9 +241,8 @@ public class ContactListViewModel extends AndroidViewModel {
             body.put("sender", emailA);
             body.put("receiver", emailB);
         } catch (JSONException e) {
-            Log.e("CHAT MODEL", "Failed to parse chat name on connectAddNewChat()");
+            Log.e("CHAT MODEL", "Failed to parse chat name on connectDeleteContact()");
         }
-
 
         final Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.DELETE,
@@ -445,6 +438,19 @@ public class ContactListViewModel extends AndroidViewModel {
         mContactsList.setValue(mContactsList.getValue());
     }
 
+    // Removes Contact from invites list, also adds into verified contact
+    private void handleDelete(final JSONObject result){
+        mContactsInviteList.setValue(mContactsInviteList.getValue());
+        mContactsList.setValue(mContactsList.getValue());
+    }
+
+
+
+
+
+
+    // Helper Methods....
+
     public Boolean getContactsStatus(){
         return mContactsListPending.getValue();
     }
@@ -457,6 +463,8 @@ public class ContactListViewModel extends AndroidViewModel {
         return mContactsRequestListPending.getValue();
     }
 
+
+
     public boolean isEmptyContactsList() {
         return Objects.requireNonNull(mContactsList.getValue()).size() == 0;
     }
@@ -468,6 +476,8 @@ public class ContactListViewModel extends AndroidViewModel {
     public boolean isEmptyRequestList() {
         return Objects.requireNonNull(mContactsRequestList.getValue()).size() == 0;
     }
+
+
 
     public List<Contact> getRequestList() {
         return mContactsRequestList.getValue();

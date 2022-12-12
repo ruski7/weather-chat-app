@@ -8,8 +8,8 @@
     tools:context=".ui.contacts.ContactRequestListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/contact_sent_list"
-        android:name="com.example.team_7_tcss_450.ui.contacts.ContactsSentListFragment"
+        android:id="@+id/contact_request_list"
+        android:name="com.example.team_7_tcss_450.ui.contacts.ContactsRequestListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.example.team_7_tcss_450.ui.ContactSentListFragment"
+        tools:context="com.example.team_7_tcss_450.ui.ContactRequestListFragment"
         tools:listitem="@layout/fragment_contact_request_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

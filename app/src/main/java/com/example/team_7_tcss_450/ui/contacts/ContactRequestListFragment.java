@@ -32,6 +32,8 @@ import com.example.team_7_tcss_450.databinding.FragmentContactRequestListBinding
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
 import com.example.team_7_tcss_450.ui.contacts.model.ContactListViewModel;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -71,6 +73,7 @@ public class ContactRequestListFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -78,20 +81,14 @@ public class ContactRequestListFragment extends Fragment {
 
         // Set the adapter
         Context context = view.getContext();
+        binding.contactRequestList.setLayoutManager(new LinearLayoutManager(context));
 
-        binding.contactSentList.setLayoutManager(new LinearLayoutManager(context));
-
-        final RecyclerView rv = binding.contactSentList;
-        mContactListModel.addContactRequestListObserver(getViewLifecycleOwner(), (contactsList) -> {
-            // while we do observe the contact list from ContactListViewModel,
-            // we currently just spawn a list of generated contacts from ContactGenerator.
-            // -- replace generated placeholder contacts with real contacts list
-//            binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(ContactGenerator.getContactList()));
-
-            // TODO: fix bug when contactList is Empty, there is endless GET calls (only resolved when there is at least one verified contact)
-            rv.setAdapter(new ContactRequestListRecyclerViewAdapter(
-                    contactsList,
-                    mUserModel.getEmail()));
+        final RecyclerView rv = binding.contactRequestList;
+        rv.setAdapter(new ContactRequestListRecyclerViewAdapter(
+                mContactListModel.getRequestList(),
+                mUserModel.getEmail()));
+        mContactListModel.addContactRequestListObserver(getViewLifecycleOwner(), (contactsRequestList) -> {
+            Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
         });
 
         // Add "add new contact" icon to top menu bar

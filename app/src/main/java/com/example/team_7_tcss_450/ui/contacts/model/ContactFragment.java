@@ -11,6 +11,7 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -68,8 +69,6 @@ public class ContactFragment extends Fragment {
         final int memberID = args.getContact().getMemberID();
         final String memberID_String = "MemberID: " + memberID;
 
-
-        System.out.println(fullName);
         binding.contactFullName.setText(fullName);
         binding.contactUserName.setText(userName);
         binding.contactEmail.setText(emailLabel);
@@ -79,7 +78,9 @@ public class ContactFragment extends Fragment {
     }
 
     private void deleteContact(View view) {
+        System.out.println("DELETE MEEE!");
         mContactListModel.connectDeleteContact(mUserModel.getJWT(), mUserModel.getEmail(), email);
+//        Navigation.findNavController(requireView()).navigate(R.id.navigation_contacts);
     }
 
 }

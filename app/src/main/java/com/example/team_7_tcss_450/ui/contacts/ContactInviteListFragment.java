@@ -82,10 +82,9 @@ public class ContactInviteListFragment extends Fragment implements ContactInvite
 
         // Set the adapter
         Context context = view.getContext();
+        binding.contactInviteList.setLayoutManager(new LinearLayoutManager(context));
 
-        binding.contactPendingList.setLayoutManager(new LinearLayoutManager(context));
-
-        final RecyclerView rv = binding.contactPendingList;
+        final RecyclerView rv = binding.contactInviteList;
         rv.setAdapter(new ContactInviteListRecyclerViewAdapter(
                 mContactListModel.getInviteList(),
                 this));
