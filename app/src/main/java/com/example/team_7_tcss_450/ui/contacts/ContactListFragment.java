@@ -31,6 +31,8 @@ import com.example.team_7_tcss_450.databinding.FragmentContactListBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
 import com.example.team_7_tcss_450.ui.contacts.model.ContactListViewModel;
 
+import java.util.Objects;
+
 public class ContactListFragment extends Fragment {
 
     private ContactListViewModel mContactListModel;
@@ -55,6 +57,9 @@ public class ContactListFragment extends Fragment {
         mUserModel = provider.get(UserInfoViewModel.class);
 
         mContactListModel = new ViewModelProvider(requireActivity()).get(ContactListViewModel.class);
+
+        if (mContactListModel.isEmptyContactsList() && !mContactListModel.getContactsStatus()) {
+            mContactListModel.connectGetContactList(mUserModel.getJWT(),mUserModel.getEmail());}
     }
 
     @Override
@@ -66,6 +71,7 @@ public class ContactListFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -77,18 +83,12 @@ public class ContactListFragment extends Fragment {
         binding.contactList.setLayoutManager(new LinearLayoutManager(context));
 
         final RecyclerView rv = binding.contactList;
-        mContactListModel.addContactListObserver(getViewLifecycleOwner(), (contactsList) -> {
-            // while we do observe the contact list from ContactListViewModel,
-            // we currently just spawn a list of generated contacts from ContactGenerator.
-            // -- replace generated placeholder contacts with real contacts list
-//            binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(ContactGenerator.getContactList()));
+        rv.setAdapter(new ContactListRecyclerViewAdapter(
+                mContactListModel.getContactList(),
+                mUserModel.getEmail()));
 
-            // TODO: fix bug when contactList is Empty, there is endless GET calls (only resolved when there is at least one verified contact)
-            rv.setAdapter(new ContactListRecyclerViewAdapter(
-                    contactsList,
-                    mUserModel.getEmail()));
-            if (contactsList.isEmpty() && !mContactListModel.getContactsStatus()) {
-                mContactListModel.connectGetContactList(mUserModel.getJWT(),mUserModel.getEmail());}
+        mContactListModel.addContactListObserver(getViewLifecycleOwner(), (contactsList) -> {
+            Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
         });
 
         // Add "add new contact" icon to top menu bar
@@ -111,7 +111,7 @@ public class ContactListFragment extends Fragment {
                         showAddContactDialog();
                         return true;
                     }
-                    case R.id.action_contact_invites: {
+                    case R.id.navigation_invite_contacts: {
                         navigateToInvites();
                         return true;
                     }
@@ -134,9 +134,7 @@ public class ContactListFragment extends Fragment {
     }
 
     private void navigateToInvites() {
-        Navigation.findNavController(requireView()).navigate(
-                ContactListFragmentDirections
-                        .actionNavigationContactsToNavigationInviteContacts());
+        Navigation.findNavController(requireView()).navigate(R.id.navigation_invite_contacts);
     }
 
 

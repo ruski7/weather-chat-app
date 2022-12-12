@@ -17,9 +17,11 @@ import java.util.List;
 public class ContactRequestListRecyclerViewAdapter extends RecyclerView.Adapter<ContactRequestListRecyclerViewAdapter.ContactViewHolder> {
 
     private final List<Contact> mValues;
+    private final String mUserEmail;
 
-    public ContactRequestListRecyclerViewAdapter(List<Contact> items) {
+    public ContactRequestListRecyclerViewAdapter(List<Contact> items, String email) {
         mValues = items;
+        mUserEmail = email;
     }
 
     @NonNull

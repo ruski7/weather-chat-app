@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom|withText" />
 
     <item
-        android:id="@+id/action_contact_invites"
+        android:id="@+id/navigation_invite_contacts"
         android:title="@string/action_view_invite_contacts"
         android:orderInCategory="98"
         app:showAsAction="never" />

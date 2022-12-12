@@ -30,12 +30,15 @@ import android.widget.EditText;
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentContactInviteListBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
+import com.example.team_7_tcss_450.ui.contacts.model.Contact;
 import com.example.team_7_tcss_450.ui.contacts.model.ContactListViewModel;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactInviteListFragment extends Fragment {
+public class ContactInviteListFragment extends Fragment implements ContactInviteListRecyclerViewAdapter.OnContactInviteListener {
 
     private ContactListViewModel mContactListModel;
     private UserInfoViewModel mUserModel;
@@ -58,6 +61,9 @@ public class ContactInviteListFragment extends Fragment {
         mUserModel = provider.get(UserInfoViewModel.class);
 
         mContactListModel = new ViewModelProvider(requireActivity()).get(ContactListViewModel.class);
+
+        if (mContactListModel.isEmptyInviteList() && !mContactListModel.getInviteStatus()) {
+            mContactListModel.connectGetContactInviteList(mUserModel.getJWT(), mUserModel.getEmail());}
     }
 
     @Override
@@ -68,6 +74,7 @@ public class ContactInviteListFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -79,16 +86,11 @@ public class ContactInviteListFragment extends Fragment {
         binding.contactPendingList.setLayoutManager(new LinearLayoutManager(context));
 
         final RecyclerView rv = binding.contactPendingList;
-        mContactListModel.addContactListObserver(getViewLifecycleOwner(), (contactsInviteList) -> {
-            // while we do observe the contact list from ContactListViewModel,
-            // we currently just spawn a list of generated contacts from ContactGenerator.
-            // -- replace generated placeholder contacts with real contacts list
-//            binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(ContactGenerator.getContactList()));
-
-            // TODO: fix bug when contactList is Empty, there is endless GET calls (only resolved when there is at least one verified contact)
-            rv.setAdapter(new ContactInviteListRecyclerViewAdapter(contactsInviteList));
-            if (contactsInviteList.isEmpty() && !mContactListModel.getInviteStatus()) {
-                mContactListModel.connectGetContactInviteList(mUserModel.getJWT(), mUserModel.getEmail());}
+        rv.setAdapter(new ContactInviteListRecyclerViewAdapter(
+                mContactListModel.getInviteList(),
+                this));
+        mContactListModel.addContactInviteListObserver(getViewLifecycleOwner(), (contactsInviteList) -> {
+            Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
         });
 
         // Add "add new contact" icon to top menu bar
@@ -111,7 +113,7 @@ public class ContactInviteListFragment extends Fragment {
                         showAddContactDialog();
                         return true;
                     }
-                    case R.id.action_contact_invites: {
+                    case R.id.navigation_invite_contacts: {
                         // Already in invites fragment: do nothing
                         return true;
                     }
@@ -165,4 +167,17 @@ public class ContactInviteListFragment extends Fragment {
         dialog.show();
     }
 
+    @Override
+    public void onAcceptInvite(int position) {
+        System.out.println("Accept Button Activated");
+        Contact contact = mContactListModel.getInviteList().get(position);
+        mContactListModel.connectContactAccept(mUserModel.getJWT(), contact.getEmail(), mUserModel.getEmail(), position);
+    }
+
+    @Override
+    public void onRejectInvite(int position) {
+        System.out.println("Reject Button Activated");
+        Contact contact = mContactListModel.getInviteList().get(position);
+
+    }
 }

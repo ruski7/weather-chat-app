@@ -26,7 +26,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@mipmap/ic_launcher" />
 
-        <!-- take out android:text="asddsad"-->
         <TextView
             android:id="@+id/textViewContactName"
             android:text="CONTACTNAME"

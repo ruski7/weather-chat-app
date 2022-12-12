@@ -26,9 +26,6 @@
             android:id="@+id/action_navigation_contacts_to_contactFragment"
             app:destination="@id/contactFragment" />
         <action
-            android:id="@+id/action_navigation_contacts_to_navigation_invite_contacts"
-            app:destination="@id/navigation_invite_contacts" />
-        <action
             android:id="@+id/action_navigation_contacts_to_navigation_request_contacts"
             app:destination="@id/navigation_request_contacts" />
     </fragment>
@@ -66,11 +63,7 @@
         android:id="@+id/navigation_request_contacts"
         android:name="com.example.team_7_tcss_450.ui.contacts.ContactRequestListFragment"
         android:label="@string/title_contacts"
-        tools:layout="@layout/fragment_contact_request_list">
-        <action
-            android:id="@+id/action_navigation_request_contacts_to_navigation_invite_contacts"
-            app:destination="@id/navigation_invite_contacts" />
-    </fragment>
+        tools:layout="@layout/fragment_contact_request_list"/>
     <fragment
         android:id="@+id/contactFragment"
         android:name="com.example.team_7_tcss_450.ui.contacts.model.ContactFragment"

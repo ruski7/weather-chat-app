@@ -17,17 +17,20 @@ import java.util.List;
 public class ContactInviteListRecyclerViewAdapter extends RecyclerView.Adapter<ContactInviteListRecyclerViewAdapter.ContactViewHolder> {
 
     private final List<Contact> mValues;
+    private final OnContactInviteListener mOnContactInviteListener;
 
-    public ContactInviteListRecyclerViewAdapter(List<Contact> items) {
+    public ContactInviteListRecyclerViewAdapter(List<Contact> items, OnContactInviteListener onContactInviteListener) {
         mValues = items;
+        mOnContactInviteListener = onContactInviteListener;
     }
 
     @NonNull
     @Override
     public ContactInviteListRecyclerViewAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ContactInviteListRecyclerViewAdapter.ContactViewHolder(LayoutInflater
+        View view =  LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_contact_invite_card, parent, false));
+                .inflate(R.layout.fragment_contact_invite_card, parent, false);
+        return new ContactViewHolder(view, mOnContactInviteListener);
     }
 
     @Override
@@ -40,6 +43,9 @@ public class ContactInviteListRecyclerViewAdapter extends RecyclerView.Adapter<C
 
         binding.textViewContactName.setText(fullName);
         binding.textViewContactUsername.setText(item.getUserName());
+
+        holder.acceptInvite(position);
+        holder.rejectInvite(position);
     }
 
     @Override
@@ -47,15 +53,35 @@ public class ContactInviteListRecyclerViewAdapter extends RecyclerView.Adapter<C
         return mValues.size();
     }
 
+    public interface OnContactInviteListener {
+        void onAcceptInvite(int position);
+        void onRejectInvite(int position);
+    }
+
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
+
+        public OnContactInviteListener onContactInviteListener;
         public Contact mItem;
         public View mView;
         public FragmentContactInviteCardBinding binding;
 
-        public ContactViewHolder(View view) {
+        public ContactViewHolder(View view, OnContactInviteListener onContactInviteListener) {
             super(view);
             mView = view;
             binding = FragmentContactInviteCardBinding.bind(view);
+            this.onContactInviteListener = onContactInviteListener;
+        }
+
+        void acceptInvite(final int position) {
+            binding.acceptContactButton.setOnClickListener(view -> {
+                onContactInviteListener.onAcceptInvite(position);
+            });
+        }
+
+        void rejectInvite(final int position) {
+            binding.rejectContactButton.setOnClickListener(view -> {
+                onContactInviteListener.onRejectInvite(position);
+            });
         }
     }
 }

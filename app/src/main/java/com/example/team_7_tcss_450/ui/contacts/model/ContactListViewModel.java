@@ -31,8 +31,8 @@ public class ContactListViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mErrorResponse;
     private MutableLiveData<List<Contact>> mContactsList;
-    private MutableLiveData<List<Contact>> mContactsRequestList;
     private MutableLiveData<List<Contact>> mContactsInviteList;
+    private MutableLiveData<List<Contact>> mContactsRequestList;
 
     private MutableLiveData<Boolean> mContactsListPending;
     private MutableLiveData<Boolean> mContactsRequestListPending;
@@ -64,9 +64,18 @@ public class ContactListViewModel extends AndroidViewModel {
     public void addContactListObserver(@NonNull LifecycleOwner owner,
                                              @NonNull Observer<? super List<Contact>> observer) {
         mContactsList.observe(owner, observer);
+    }
+
+    public void addContactRequestListObserver(@NonNull LifecycleOwner owner,
+                                       @NonNull Observer<? super List<Contact>> observer) {
         mContactsRequestList.observe(owner, observer);
+    }
+
+    public void addContactInviteListObserver(@NonNull LifecycleOwner owner,
+                                       @NonNull Observer<? super List<Contact>> observer) {
         mContactsInviteList.observe(owner, observer);
     }
+
 
     public void addErrorResponseObserver(@NonNull LifecycleOwner owner,
                                          @NonNull Observer<? super JSONObject> observer) {
@@ -182,19 +191,70 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     // Connects to the backend to accepted an invite to the user if such exists
-    public void connectContactAccept(final String jwt, final String email) {
+    public void connectContactAccept(final String jwt, final String senderEmail, final String receiverEmail, int position) {
         Log.d("c_connect", "PUT CALLED");
         // Generate url for making web service request
         // URL USES HARDCODED email args, REPLACE ASAP
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
-        final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "?sender=test@test.test&receiver=" + email;
+        final String url = getApplication().getResources().getString(R.string.base_url_contact_service);
         System.out.println(url);
+
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("sender", senderEmail);
+            body.put("receiver", receiverEmail);
+        } catch (JSONException e) {
+            Log.e("CHAT MODEL", "Failed to parse chat name on connectAddNewChat()");
+        }
+
+        System.out.println(senderEmail);
+        System.out.println(receiverEmail);
 
         final Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.PUT,
                 url,
-                null,
+                body,
+                result -> handleAccept(result,position),
+                error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
+        ) {
+            // Add user JWT token into request header
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>(1);
+                headers.put("authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    // Deletes Requested Contact!
+    public void connectDeleteContact(final String jwt, final String emailA, final String emailB) {
+        Log.d("c_connect", "DELETE CALLED");
+        // Generate url for making web service request
+        final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
+                "?sender=" + emailA + "&receiver=" + emailB;
+        System.out.println(url);
+
+        JSONObject body = new JSONObject();
+        try {
+            body.put("sender", emailA);
+            body.put("receiver", emailB);
+        } catch (JSONException e) {
+            Log.e("CHAT MODEL", "Failed to parse chat name on connectAddNewChat()");
+        }
+
+
+        final Request<JSONObject> request = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                body,
                 null,
                 error -> RequestMaker.defaultErrorHandler(error, mErrorResponse)
         ) {
@@ -376,6 +436,15 @@ public class ContactListViewModel extends AndroidViewModel {
         mContactsInviteListPending.setValue(Boolean.FALSE);
     }
 
+    // Removes Contact from invites list, also adds into verified contact
+    private void handleAccept(final JSONObject result, int position){
+        Objects.requireNonNull(mContactsList.getValue()).add(Objects.requireNonNull(mContactsInviteList.getValue()).get(position));
+        mContactsInviteList.getValue().remove(position);
+
+        mContactsInviteList.setValue(mContactsInviteList.getValue());
+        mContactsList.setValue(mContactsList.getValue());
+    }
+
     public Boolean getContactsStatus(){
         return mContactsListPending.getValue();
     }
@@ -388,6 +457,29 @@ public class ContactListViewModel extends AndroidViewModel {
         return mContactsRequestListPending.getValue();
     }
 
+    public boolean isEmptyContactsList() {
+        return Objects.requireNonNull(mContactsList.getValue()).size() == 0;
+    }
+
+    public boolean isEmptyInviteList() {
+        return Objects.requireNonNull(mContactsInviteList.getValue()).size() == 0;
+    }
+
+    public boolean isEmptyRequestList() {
+        return Objects.requireNonNull(mContactsRequestList.getValue()).size() == 0;
+    }
+
+    public List<Contact> getRequestList() {
+        return mContactsRequestList.getValue();
+    }
+
+    public List<Contact> getInviteList() {
+        return mContactsInviteList.getValue();
+    }
+
+    public List<Contact> getContactList() {
+        return mContactsList.getValue();
+    }
 
 
 

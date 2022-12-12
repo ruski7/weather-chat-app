@@ -29,8 +29,22 @@ import com.example.team_7_tcss_450.model.UserInfoViewModel;
  */
 public class ContactFragment extends Fragment {
 
+    private UserInfoViewModel mUserModel;
+    private ContactListViewModel mContactListModel;
+
+    private String email;
+
     public ContactFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ViewModelProvider provider = new ViewModelProvider(requireActivity());
+        mUserModel = provider.get(UserInfoViewModel.class);
+        mContactListModel = new ViewModelProvider(requireActivity()).get(ContactListViewModel.class);
     }
 
     @Override
@@ -47,12 +61,10 @@ public class ContactFragment extends Fragment {
         ContactFragmentArgs args = ContactFragmentArgs.fromBundle(getArguments());
         FragmentContactBinding binding = FragmentContactBinding.bind(getView());
 
-
-
-
-        final String fullName = args.getContact().getFirstName() + args.getContact().getLastName();
+        final String fullName = args.getContact().getFirstName() + " " + args.getContact().getLastName();
         final String userName = args.getContact().getUserName();
-        final String email = "Email : " + args.getContact().getEmail();
+        email = args.getContact().getEmail(); // nasty workaround but we rushing lol
+        final String emailLabel = "Email: " + email;
         final int memberID = args.getContact().getMemberID();
         final String memberID_String = "MemberID: " + memberID;
 
@@ -60,11 +72,14 @@ public class ContactFragment extends Fragment {
         System.out.println(fullName);
         binding.contactFullName.setText(fullName);
         binding.contactUserName.setText(userName);
-        binding.contactEmail.setText(email);
+        binding.contactEmail.setText(emailLabel);
         binding.contactMemberID.setText(memberID_String);
 
-        // Correct: Top Menu is not needed as this fragment should be a full view on the users contact information.
+        binding.deleteContactButton.setOnClickListener(this::deleteContact);
+    }
 
+    private void deleteContact(View view) {
+        mContactListModel.connectDeleteContact(mUserModel.getJWT(), mUserModel.getEmail(), email);
     }
 
 }

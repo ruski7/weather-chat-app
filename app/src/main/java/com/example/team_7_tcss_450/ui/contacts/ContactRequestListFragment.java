@@ -58,6 +58,9 @@ public class ContactRequestListFragment extends Fragment {
         mUserModel = provider.get(UserInfoViewModel.class);
 
         mContactListModel = new ViewModelProvider(requireActivity()).get(ContactListViewModel.class);
+
+        if (mContactListModel.isEmptyRequestList() &&  !mContactListModel.getRequestStatus()) {
+            mContactListModel.connectGetContactRequestList(mUserModel.getJWT(), mUserModel.getEmail());}
     }
 
     @Override
@@ -79,18 +82,16 @@ public class ContactRequestListFragment extends Fragment {
         binding.contactSentList.setLayoutManager(new LinearLayoutManager(context));
 
         final RecyclerView rv = binding.contactSentList;
-        mContactListModel.addContactListObserver(getViewLifecycleOwner(), (contactsList) -> {
+        mContactListModel.addContactRequestListObserver(getViewLifecycleOwner(), (contactsList) -> {
             // while we do observe the contact list from ContactListViewModel,
             // we currently just spawn a list of generated contacts from ContactGenerator.
             // -- replace generated placeholder contacts with real contacts list
 //            binding.contactList.setAdapter(new ContactListRecyclerViewAdapter(ContactGenerator.getContactList()));
 
             // TODO: fix bug when contactList is Empty, there is endless GET calls (only resolved when there is at least one verified contact)
-            rv.setAdapter(new ContactListRecyclerViewAdapter(
+            rv.setAdapter(new ContactRequestListRecyclerViewAdapter(
                     contactsList,
                     mUserModel.getEmail()));
-            if (contactsList.isEmpty() &&  !mContactListModel.getRequestStatus()) {
-                mContactListModel.connectGetContactRequestList(mUserModel.getJWT(), mUserModel.getEmail());}
         });
 
         // Add "add new contact" icon to top menu bar
@@ -113,7 +114,7 @@ public class ContactRequestListFragment extends Fragment {
                         showAddContactDialog();
                         return true;
                     }
-                    case R.id.action_contact_invites: {
+                    case R.id.navigation_invite_contacts: {
                         navigateToInvites();
                         return true;
                     }
@@ -130,9 +131,7 @@ public class ContactRequestListFragment extends Fragment {
 
     private void navigateToInvites() {
         //On button click, navigate to Second Home
-        Navigation.findNavController(requireView()).navigate(
-                ContactRequestListFragmentDirections
-                        .actionNavigationRequestContactsToNavigationInviteContacts());
+        Navigation.findNavController(requireView()).navigate(R.id.navigation_invite_contacts);
     }
 
 
