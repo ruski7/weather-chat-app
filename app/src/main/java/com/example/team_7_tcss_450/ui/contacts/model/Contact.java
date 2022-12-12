@@ -1,7 +1,9 @@
-package com.example.team_7_tcss_450.ui.contacts;
+package com.example.team_7_tcss_450.ui.contacts.model;
 
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
 
     private final String mUserName;
     private final String mFirstName;
@@ -60,5 +62,22 @@ public class Contact {
     public int getMemberID() {
         return memberID;
     }
+
+    public String toString(){
+        return "\nusername: " + mUserName +
+                "\nfirstname: " + mFirstName +
+                "\nlastname: " + mLastName +
+                "\nemail: " + mEmail +
+                "\nmemberID: " + memberID;
+    }
+
+    public Boolean equals(Contact contact){
+        return this.mUserName.equals(contact.getUserName()) &&
+                this.mFirstName.equals(contact.getFirstName()) &&
+                this.mLastName.equals(contact.getLastName()) &&
+                this.mEmail.equals(contact.getEmail()) &&
+                this.memberID == contact.getMemberID();
+    }
+
 }
 

@@ -21,7 +21,14 @@
     <fragment
         android:id="@+id/navigation_contacts"
         android:name="com.example.team_7_tcss_450.ui.contacts.ContactListFragment"
-        android:label="@string/title_contacts" />
+        android:label="@string/title_contacts" >
+        <action
+            android:id="@+id/action_navigation_contacts_to_contactFragment"
+            app:destination="@id/contactFragment" />
+        <action
+            android:id="@+id/action_navigation_contacts_to_navigation_request_contacts"
+            app:destination="@id/navigation_request_contacts" />
+    </fragment>
     <navigation android:id="@+id/navigation_nested_chat"
         app:startDestination="@id/navigation_message">
         <fragment
@@ -43,4 +50,26 @@
                 app:argType="integer" />
         </fragment>
     </navigation>
+    <fragment
+        android:id="@+id/navigation_invite_contacts"
+        android:name="com.example.team_7_tcss_450.ui.contacts.ContactInviteListFragment"
+        android:label="@string/title_contacts"
+        tools:layout="@layout/fragment_contact_invite_list">
+        <action
+            android:id="@+id/action_navigation_invite_contacts_to_navigation_request_contacts"
+            app:destination="@id/navigation_request_contacts" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_request_contacts"
+        android:name="com.example.team_7_tcss_450.ui.contacts.ContactRequestListFragment"
+        android:label="@string/title_contacts"
+        tools:layout="@layout/fragment_contact_request_list"/>
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.example.team_7_tcss_450.ui.contacts.model.ContactFragment"
+        android:label="ContactFragment" >
+        <argument
+            android:name="contact"
+            app:argType="com.example.team_7_tcss_450.ui.contacts.model.Contact" />
+    </fragment>
 </navigation>

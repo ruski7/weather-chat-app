@@ -1,4 +1,6 @@
-package com.example.team_7_tcss_450.ui.contacts;
+package com.example.team_7_tcss_450.ui.contacts.model;
+
+import com.example.team_7_tcss_450.ui.contacts.model.Contact;
 
 import java.util.Arrays;
 import java.util.List;

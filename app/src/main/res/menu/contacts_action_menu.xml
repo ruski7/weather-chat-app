@@ -3,7 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/invite_contact"
+        android:id="@+id/app_bar_search"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/navigation_invite_contacts"
+        android:title="@string/action_view_invite_contacts"
+        android:orderInCategory="98"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_contact_requests"
+        android:title="@string/action_view_request_contacts"
+        android:orderInCategory="99"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_contact_send_invite"
         android:icon="@drawable/ic_add_contact"
         android:title="@string/action_invite_contact"
         app:showAsAction="ifRoom" />

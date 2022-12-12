@@ -30,6 +30,7 @@
     <string name="base_url_service">https://team7-tcss450-project-service.herokuapp.com/</string>
     <string name="base_url_auth">https://team7-tcss450-project-auth.herokuapp.com/</string>
     <string name="base_url_weather_service">https://team7-tcss450-project-service.herokuapp.com/weatherbit/</string>
+    <string name="base_url_contact_service">https://team7-tcss450-project-service.herokuapp.com/contacts/</string>
 
     <!-- Strings used for weather forecast fragment -->
     <string name="label_weather_max_temp">Max</string>
@@ -50,7 +51,17 @@
     <string name="action_sign_out">Sign Out</string>
 
     <!-- Strings used for contacts action bar -->
-    <string name="action_invite_contact">Invite new contact</string>
+    <string name="action_invite_contact">Invite New Contact</string>
+    <string name="action_view_request_contacts">Requests</string>
+    <string name="action_view_invite_contacts">Invites</string>
+    <string name="dialogue_title_add_new_contact">Add New Contact</string>
+    <string name="hint_contact_email">Email Address</string>
+
+    <!-- Contact Information -->
+    <string name="label_fullname"></string>
+    <string name="label_username">User Name: %1$s</string>
+    <string name="label_email">Email: %1$s</string>
+    <string name="label_memberid">MemberID: %1$s</string>
 
     <!-- Strings used for chat feature -->
     <string name="content_desc_send_msg">Send Message</string>

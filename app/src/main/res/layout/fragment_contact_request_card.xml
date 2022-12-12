@@ -35,7 +35,7 @@
             android:layout_marginTop="16dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/openContact"
+            app:layout_constraintEnd_toStartOf="@+id/cancelContactButton"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/contactImage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,19 +51,19 @@
             android:layout_marginBottom="16dp"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/openContact"
+            app:layout_constraintEnd_toStartOf="@+id/cancelContactButton"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/contactImage"
             app:layout_constraintTop_toBottomOf="@+id/textViewContactName" />
 
         <ImageButton
-            android:id="@+id/openContact"
+            android:id="@+id/cancelContactButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_open_contact_white_24dp" />
+            app:srcCompat="@drawable/ic_reject_contact_white_24dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

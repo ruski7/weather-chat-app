@@ -2,12 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.contacts.ContactInviteListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/contact_list"
-        android:name="com.example.team_7_tcss_450.ui.contacts.ContactsListFragment"
+        android:id="@+id/contact_invite_list"
+        android:name="com.example.team_7_tcss_450.ui.contacts.ContactsInviteListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -16,17 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.example.team_7_tcss_450.ui.ContactListFragment"
-        tools:listitem="@layout/fragment_contact_card" />
-
-<!--    <ProgressBar-->
-<!--        android:id="@+id/idPBLoading"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"/>-->
+        tools:context="com.example.team_7_tcss_450.ui.ContactInviteListFragment"
+        tools:listitem="@layout/fragment_contact_invite_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

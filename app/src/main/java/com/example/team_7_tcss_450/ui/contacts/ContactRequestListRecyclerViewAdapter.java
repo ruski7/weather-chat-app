@@ -6,32 +6,30 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team_7_tcss_450.R;
-import com.example.team_7_tcss_450.databinding.FragmentContactCardBinding;
+import com.example.team_7_tcss_450.databinding.FragmentContactRequestCardBinding;
 import com.example.team_7_tcss_450.ui.contacts.model.Contact;
 
 import java.util.List;
 
-public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<ContactListRecyclerViewAdapter.ContactViewHolder> {
+public class ContactRequestListRecyclerViewAdapter extends RecyclerView.Adapter<ContactRequestListRecyclerViewAdapter.ContactViewHolder> {
 
     private final List<Contact> mValues;
     private final String mUserEmail;
 
-    public ContactListRecyclerViewAdapter(List<Contact> items, String email)
-    {
+    public ContactRequestListRecyclerViewAdapter(List<Contact> items, String email) {
         mValues = items;
         mUserEmail = email;
     }
 
     @NonNull
     @Override
-    public ContactListRecyclerViewAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ContactListRecyclerViewAdapter.ContactViewHolder(LayoutInflater
+    public ContactRequestListRecyclerViewAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ContactRequestListRecyclerViewAdapter.ContactViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_contact_card, parent, false));
+                .inflate(R.layout.fragment_contact_request_card, parent, false));
     }
 
     @Override
@@ -39,13 +37,11 @@ public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<Contact
         holder.mItem = mValues.get(position);
         Contact item = holder.mItem;
         Resources res = holder.mView.getResources();
-        final FragmentContactCardBinding binding = holder.binding;
+        final FragmentContactRequestCardBinding binding = holder.binding;
         final String fullName = item.getFirstName() + " " + item.getLastName();
 
         binding.textViewContactName.setText(fullName);
         binding.textViewContactUsername.setText(item.getUserName());
-
-        holder.openContact(mValues.get(position));
     }
 
     @Override
@@ -56,23 +52,13 @@ public class ContactListRecyclerViewAdapter extends RecyclerView.Adapter<Contact
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
         public Contact mItem;
         public View mView;
-        public FragmentContactCardBinding binding;
+        public FragmentContactRequestCardBinding binding;
 
         public ContactViewHolder(View view) {
             super(view);
             mView = view;
-            binding = FragmentContactCardBinding.bind(view);
-        }
-
-        void openContact(final Contact contact) {
-            mItem = contact;
-            binding.openContact.setOnClickListener(view -> {
-                Navigation.findNavController(mView).navigate(
-                        ContactListFragmentDirections.actionNavigationContactsToContactFragment(contact)
-                );
-            });
+            binding = FragmentContactRequestCardBinding.bind(view);
         }
 
     }
-
 }

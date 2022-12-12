@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contact_card_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,7 +26,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@mipmap/ic_launcher" />
 
-        <!-- take out android:text="asddsad"-->
         <TextView
             android:id="@+id/textViewContactName"
             android:text="CONTACTNAME"
@@ -35,7 +35,7 @@
             android:layout_marginTop="16dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/openContact"
+            app:layout_constraintEnd_toStartOf="@+id/rejectContactButton"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/contactImage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,19 +51,29 @@
             android:layout_marginBottom="16dp"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/openContact"
+            app:layout_constraintEnd_toStartOf="@+id/rejectContactButton"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/contactImage"
             app:layout_constraintTop_toBottomOf="@+id/textViewContactName" />
 
         <ImageButton
-            android:id="@+id/openContact"
+            android:id="@+id/rejectContactButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_open_contact_white_24dp" />
+            app:srcCompat="@drawable/ic_reject_contact_white_24dp" />
+
+        <ImageButton
+            android:id="@+id/acceptContactButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rejectContactButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_accept_contact_white_24dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

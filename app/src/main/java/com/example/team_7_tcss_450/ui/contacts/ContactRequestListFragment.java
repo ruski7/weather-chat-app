@@ -4,16 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,31 +16,44 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+
 import com.example.team_7_tcss_450.R;
-import com.example.team_7_tcss_450.databinding.FragmentContactListBinding;
+import com.example.team_7_tcss_450.databinding.FragmentContactRequestListBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
 import com.example.team_7_tcss_450.ui.contacts.model.ContactListViewModel;
 
 import java.util.Objects;
 
-public class ContactListFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ContactRequestListFragment extends Fragment {
 
     private ContactListViewModel mContactListModel;
     private UserInfoViewModel mUserModel;
-    private FragmentContactListBinding binding;
-
+    private FragmentContactRequestListBinding binding;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ContactListFragment() {
+    public ContactRequestListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("fragment_made", "OnCreate Called in ContactListFragment");
+        Log.d("fragment_made", "OnCreate Called in ContactSentListFragment");
         super.onCreate(savedInstanceState);
 
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
@@ -58,15 +61,14 @@ public class ContactListFragment extends Fragment {
 
         mContactListModel = new ViewModelProvider(requireActivity()).get(ContactListViewModel.class);
 
-        if (mContactListModel.isEmptyContactsList() && !mContactListModel.getContactsStatus()) {
-            mContactListModel.connectGetContactList(mUserModel.getJWT(),mUserModel.getEmail());}
+        if (mContactListModel.isEmptyRequestList() &&  !mContactListModel.getRequestStatus()) {
+            mContactListModel.connectGetContactRequestList(mUserModel.getJWT(), mUserModel.getEmail());}
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentContactListBinding.inflate(inflater);
-
+        binding = FragmentContactRequestListBinding.inflate(inflater);
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -75,19 +77,17 @@ public class ContactListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FragmentContactListBinding binding = FragmentContactListBinding.bind(requireView());
+        FragmentContactRequestListBinding binding = FragmentContactRequestListBinding.bind(requireView());
 
         // Set the adapter
         Context context = view.getContext();
+        binding.contactRequestList.setLayoutManager(new LinearLayoutManager(context));
 
-        binding.contactList.setLayoutManager(new LinearLayoutManager(context));
-
-        final RecyclerView rv = binding.contactList;
-        rv.setAdapter(new ContactListRecyclerViewAdapter(
-                mContactListModel.getContactList(),
+        final RecyclerView rv = binding.contactRequestList;
+        rv.setAdapter(new ContactRequestListRecyclerViewAdapter(
+                mContactListModel.getRequestList(),
                 mUserModel.getEmail()));
-
-        mContactListModel.addContactListObserver(getViewLifecycleOwner(), (contactsList) -> {
+        mContactListModel.addContactRequestListObserver(getViewLifecycleOwner(), (contactsRequestList) -> {
             Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
         });
 
@@ -116,7 +116,7 @@ public class ContactListFragment extends Fragment {
                         return true;
                     }
                     case R.id.action_contact_requests: {
-                        navigateToRequests();
+                        // Already in request fragment: do nothing
                         return true;
                     }
                     default:
@@ -126,14 +126,8 @@ public class ContactListFragment extends Fragment {
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
-    private void navigateToRequests() {
-        //On button click, navigate to Second Home
-        Navigation.findNavController(requireView()).navigate(
-                ContactListFragmentDirections
-                        .actionNavigationContactsToNavigationRequestContacts());
-    }
-
     private void navigateToInvites() {
+        //On button click, navigate to Second Home
         Navigation.findNavController(requireView()).navigate(R.id.navigation_invite_contacts);
     }
 
