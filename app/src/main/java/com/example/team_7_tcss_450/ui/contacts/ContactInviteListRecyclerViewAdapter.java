@@ -60,10 +60,10 @@ public class ContactInviteListRecyclerViewAdapter extends RecyclerView.Adapter<C
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
 
-        public OnContactInviteListener onContactInviteListener;
         public Contact mItem;
         public View mView;
         public FragmentContactInviteCardBinding binding;
+        public OnContactInviteListener onContactInviteListener;
 
         public ContactViewHolder(View view, OnContactInviteListener onContactInviteListener) {
             super(view);

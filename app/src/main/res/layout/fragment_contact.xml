@@ -32,11 +32,12 @@
         android:id="@+id/contactUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="212dp"
+        android:layout_marginStart="1dp"
         android:text="@string/label_username"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:layout_marginStart="1dp"
         android:text="@string/label_email"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:layout_marginStart="1dp"
         android:text="Contact Notes:"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,25 +67,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactEmail" />
 
-    <TextView
-        android:id="@+id/contactMemberID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_memberid"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <TextView-->
+<!--        android:id="@+id/contactMemberID"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/label_memberid"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
     <EditText
         android:id="@+id/editTextContactNotes"
-        android:layout_width="378dp"
-        android:layout_height="220dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
         android:layout_marginTop="10dp"
         android:autofillHints="emailAddress"
+        android:background="#000000"
+
+        android:backgroundTint="#222125"
         android:ems="10"
-        android:inputType="textEmailAddress"
+        android:gravity="top|start"
+        android:hint="Rain today with a chance of meatballs..\nBut why, how, who?..   WHOCARESS!!..\n😋😋😋\n\n\n\n(ノಠ益ಠ)ノ彡┻━┻"
+        android:inputType="textMultiLine"
+        android:lines="12"
+        android:maxLines="12"
         android:minHeight="48dp"
+        android:minLines="5"
+
+
+        android:scrollbars="vertical"
         android:textColorHint="#757575"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,22 +108,20 @@
         android:id="@+id/deleteContactButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="140dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.944"
         app:srcCompat="@drawable/ic_baseline_delete_24" />
 
     <ImageButton
         android:id="@+id/openContactChatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toStartOf="@+id/deleteContactButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.944"
         app:srcCompat="@drawable/ic_chat_white_24dp" />
 
 

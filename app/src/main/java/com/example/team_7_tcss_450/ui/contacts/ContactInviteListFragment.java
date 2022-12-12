@@ -170,13 +170,14 @@ public class ContactInviteListFragment extends Fragment implements ContactInvite
     public void onAcceptInvite(int position) {
         System.out.println("Accept Button Activated");
         Contact contact = mContactListModel.getInviteList().get(position);
-        mContactListModel.connectContactAccept(mUserModel.getJWT(), contact.getEmail(), mUserModel.getEmail(), position);
+        mContactListModel.connectAcceptContact(mUserModel.getJWT(), contact.getEmail(), mUserModel.getEmail(), position);
     }
 
     @Override
     public void onRejectInvite(int position) {
         System.out.println("Reject Button Activated");
         Contact contact = mContactListModel.getInviteList().get(position);
+        mContactListModel.connectDeleteContact(mUserModel.getJWT(), contact.getEmail(), mUserModel.getEmail(), position);
 
     }
 }

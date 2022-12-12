@@ -30,6 +30,7 @@ import android.widget.EditText;
 import com.example.team_7_tcss_450.R;
 import com.example.team_7_tcss_450.databinding.FragmentContactRequestListBinding;
 import com.example.team_7_tcss_450.model.UserInfoViewModel;
+import com.example.team_7_tcss_450.ui.contacts.model.Contact;
 import com.example.team_7_tcss_450.ui.contacts.model.ContactListViewModel;
 
 import java.util.Objects;
@@ -37,7 +38,7 @@ import java.util.Objects;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactRequestListFragment extends Fragment {
+public class ContactRequestListFragment extends Fragment implements ContactRequestListRecyclerViewAdapter.OnContactRequestListener {
 
     private ContactListViewModel mContactListModel;
     private UserInfoViewModel mUserModel;
@@ -86,7 +87,7 @@ public class ContactRequestListFragment extends Fragment {
         final RecyclerView rv = binding.contactRequestList;
         rv.setAdapter(new ContactRequestListRecyclerViewAdapter(
                 mContactListModel.getRequestList(),
-                mUserModel.getEmail()));
+                mUserModel.getEmail(),this));
         mContactListModel.addContactRequestListObserver(getViewLifecycleOwner(), (contactsRequestList) -> {
             Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
         });
@@ -164,4 +165,10 @@ public class ContactRequestListFragment extends Fragment {
         dialog.show();
     }
 
+    @Override
+    public void cancelRequest(int position) {
+        System.out.println("Cancel Button Activated");
+        Contact contact = mContactListModel.getRequestList().get(position);
+        mContactListModel.connectDeleteContact(mUserModel.getJWT(), contact.getEmail(), mUserModel.getEmail(), position);
+    }
 }
