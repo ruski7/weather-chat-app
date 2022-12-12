@@ -109,7 +109,7 @@ public class WeeklyForecastViewModel extends AndroidViewModel {
         // URL USES HARDCODED latitude and longitude args, REPLACE ASAP
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_weather_service) +
-                "test?" + "lat=" + location.getLatitude() + "&lon=" + location.getLongitude();
+                "weekly?" + "lat=" + location.getLatitude() + "&lon=" + location.getLongitude();
 
         final Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.GET,
