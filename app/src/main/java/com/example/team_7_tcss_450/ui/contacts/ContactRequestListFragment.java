@@ -152,7 +152,7 @@ public class ContactRequestListFragment extends Fragment implements ContactReque
             if (contactEmail.length() == 0)
                 contactEditText.setError("Empty Title");
             else {
-                mContactListModel.connectAddContact(contactEmail, mUserModel.getJWT());
+                mContactListModel.connectAddContact(mUserModel.getJWT(), mUserModel.getEmail() ,contactEmail);
                 dialog.dismiss();
             }
             Log.d("CHAT PREVIEWS", "DIALOG CONFIRM BUTTON CLICKED");

@@ -271,15 +271,14 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     // Connects to the user to send a pending contact invite to another user
-    public void connectAddContact(final String receiverEmail, final String jwt) {
+    public void connectAddContact(final String jwt, final String senderEmail,  final String receiverEmail) {
         Log.d("c_connect", "POST CALLED");
         // Generate url for making web service request
         // URL USES HARDCODED email args, REPLACE ASAP
         // FURTHERMORE, This uses our TEST ENDPOINT, REPLACE WITH PRODUCTION ENDPOINT BEFORE SPRINT MEET
         final String url = getApplication().getResources().getString(R.string.base_url_contact_service) +
-                "?sender=test@test.test&receiver=" + receiverEmail;
+                "?sender" + senderEmail +"&receiver=" + receiverEmail;
         System.out.println(url);
-        final String senderEmail = "test@test.test";
 
         JSONObject body = new JSONObject();
         try {
